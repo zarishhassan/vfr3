@@ -18,7 +18,7 @@ function AddProductArea() {
     const formData = new FormData();
     formData.append("product_name", product_name);
     formData.append("product_description", product_description);
-    formData.append("file", product_images);
+    // formData.append("file", product_images);
     formData.append("product_type", product_type);
     formData.append("product_color", product_color);
     formData.append("product_price", product_price);
@@ -44,7 +44,7 @@ function AddProductArea() {
                 setProductName("");
                 setProductDescription("");
                 setProductType("");
-                setProductImages("");
+                // setProductImages("");
                 setProductColor("");
                 setProductPrice("");
                 setTotalInStock("");
@@ -91,7 +91,7 @@ function AddProductArea() {
               ></textarea>
               {product_description === '' && <p className="error_color">{errors.product_description}</p>}
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="product_images">Product Images</label>
               <input
                 type="file"
@@ -100,7 +100,7 @@ function AddProductArea() {
                 onChange={(e) => setProductImages(e.target.files[0])}
               />
               {product_images === '' && <p className="error_color">{errors.product_images}</p>}
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="product_type">Product Type</label>
               <select
