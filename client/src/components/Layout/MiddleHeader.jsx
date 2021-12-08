@@ -27,7 +27,7 @@ function MiddleHeader({ history }) {
           <div className="col-lg-3">
             <div className="middle-header-logo">
               <Link to="/">
-                <h5 style={{color: 'white'}}>Virtual Fitting Room</h5>
+                <h5 style={{ color: "white" }}>Virtual Fitting Room</h5>
                 {/* <img src={logo} alt="image" /> */}
               </Link>
             </div>
@@ -79,7 +79,7 @@ function MiddleHeader({ history }) {
 
           <div className="col-lg-3">
             <ul className="middle-header-optional">
-            {/* <li>
+              {/* <li>
                 <Link to="/login">
                   <i className="flaticon-shopping-cart"></i>
                   {context.cartItems && context.cartItems.length > 0 && (
@@ -89,21 +89,23 @@ function MiddleHeader({ history }) {
               </li> */}
               <li>
                 <Link to="/vfr">
-                  <i className="flaticon-shopping-cart"></i>
-                  {context.cartItems && context.cartItems.length > 0 && (
+                <i class="fas fa-tshirt"></i>
+                  {/* <i className="flaticon-return"></i> */}
+                  {/* {context.cartItems && context.cartItems.length > 0 && (
                     <span>{context.cartItems.length}</span>
-                  )}
+                  )} */}
                 </Link>
               </li>
-              {/* {Aucontext.token && */}
+
+              {Aucontext.token && (
                 <li>
                   <Link to="/wishlist">
                     <i className="flaticon-heart"></i>
                   </Link>
-                </li> 
-              {/* } */}
-
+                </li>
+              )}
               
+
               <li>
                 <Link to="/cart">
                   <i className="flaticon-shopping-cart"></i>
@@ -113,7 +115,7 @@ function MiddleHeader({ history }) {
                 </Link>
               </li>
               <li>
-                $
+                RS
                 {context.cartItems &&
                   context.cartItems.reduce((count, curItem) => {
                     return (

@@ -54,6 +54,7 @@ import TopHeader from "./components/Layout/TopHeader";
 function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [tokenExpiration, setTokenExpiration] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [test,setTest] = useState(null);
@@ -62,9 +63,12 @@ function App() {
     const _token = JSON.parse(localStorage.getItem("token"));
     const tokenExp = JSON.parse(localStorage.getItem("tokenExpiration"));
     const userIdLocal = JSON.parse(localStorage.getItem("userId"));
+    const userRoleLocal = JSON.parse(localStorage.getItem("role"));
+    const userNameLocal = JSON.parse(localStorage.getItem("name"));
     if (_token && userIdLocal && tokenExp) {
       setToken(_token);
       setUserId(userIdLocal);
+      setUserRole(userRoleLocal);
       setTokenExpiration(tokenExp);
     }
     const _cartItems = JSON.parse(localStorage.getItem("cart-items"));
@@ -146,7 +150,7 @@ function App() {
         >
           <div className="app">
             <Toaster />
-            <TopHeader shippingMessage="Free shipping on all orders over $50" />
+            <TopHeader/>
             <MiddleHeader />
             <Navbar />
             <Switch>
@@ -182,7 +186,7 @@ function App() {
               <Route path="/shop-right-sidebar" component={ShopRightSidebar} />
               <Route path="/shop-full-width" component={ShopFullWidth} />
               <Route path="/cart" component={Cart} />
-              <Route path="/order" component={Orders} />
+              {token && userRole === "admin" && <Route path="/order" component={Orders} />}
               <Route path="/wishlist" component={WishList} />
               <Route path="/checkout" component={Checkout} />
               <Route
@@ -200,10 +204,10 @@ function App() {
               <Route path="/blog-full-width" component={BlogFullWidth} />
               <Route path="/blog-details" component={BlogDetails} />
               <Route path="/coming-soon" component={ComingSoon} />
-              <Route path="/add-product" component={AddProduct} />
-              {/* {token && <Route path="/add-product" component={AddProduct} />} */}
+              {/* <Route path="/add-product" component={AddProduct} /> */}
+              {token && userRole === "admin" && <Route path="/add-product" component={AddProduct} />}
               {token && <Route path="/profile" component={User} />}
-              {token && <Route path="/products" component={Products} />}
+              {token && userRole === "admin" && <Route path="/products" component={Products} />}
               {token && <Route path="/reset" component={ResetPassword} />}
             </Switch>
           </div>

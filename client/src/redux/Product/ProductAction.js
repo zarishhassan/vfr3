@@ -40,7 +40,7 @@ export const listProducts = (keyword='', pageNumber = '') => async (dispatch) =>
     //   },
     // };
 
-    // passing second Argument an Empty Object, as we are not passing data here
+    // passing second Argument of product which contains attributes like name, price etc
     const { data } = await axios.post(`/products/add-product`, product);
 
     dispatch({
@@ -62,7 +62,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/products/fetch-product/${id}`);
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {

@@ -7,7 +7,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
   return (
     <section className="shop-area bg-ffffff pt-50 pb-50">
       <div className="container">
-        <div className="products-filter-options">
+        {/* <div className="products-filter-options">
           <div className="row align-items-center">
             <div className="col-lg-9 col-md-9">
               <p>Showing 1 – 18 of 100</p>
@@ -26,7 +26,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="row">
           {products &&
             products.map((product) => (
@@ -34,13 +34,22 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                 <div className="single-shop-products">
                   <div className="shop-products-image">
                     <Link to={`/products-details/${product._id}`}>
-                      <Image
+                    <Image
+                        src={product.image}
+                        alt={product.name}
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        width="300"
+                        // height="200px"
+                        style={{height: "400px"}}
+                        crop="scale"
+                      />
+                      {/* <Image
                         key={product._id}
                         cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                         publicId={product.image_public_id}
                         width="300"
                         crop="scale"
-                      />
+                      /> */}
                     </Link>
                     <div className="tag">New</div>
                     <ul className="shop-action">
@@ -93,7 +102,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                         <i className="bx bxs-star"></i>
                       </li>
                     </ul>
-                    <span>$150.00</span>
+                    <span>RS {product.price}</span>
                   </div>
                 </div>
               </div>

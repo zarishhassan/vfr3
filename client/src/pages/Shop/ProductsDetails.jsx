@@ -9,8 +9,8 @@ function ProductsDetails() {
     <div className="products-details-wrapper">
       <PageTitle title="Products Details" />
       <ProductsDetailsArea />
-      <NewArrivals paddingClass=" pt-50 pb-20" title="Related Products" />
-      <Support />
+      {/* <NewArrivals paddingClass=" pt-50 pb-20" title="Related Products" /> */}
+      {/* <Support /> */}
       <Footer />
     </div>
   );

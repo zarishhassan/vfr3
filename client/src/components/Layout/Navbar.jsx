@@ -110,39 +110,37 @@ function Navbar() {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link to="/shop/camera" className="nav-link">
-                          <i className="flaticon-camera"></i>
-                          Men 
+                        <Link to="/shop-list-view" className="nav-link">
+                          <i className="fa fa-male"></i>
+                          Men
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/speaker" className="nav-link">
-                          <i className="flaticon-stereo"></i>
+                        <Link to="/shop-list-view" className="nav-link">
+                          <i className="fa fa-female"></i>
                           Women
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/tv" className="nav-link">
-                          <i className="flaticon-tv-box"></i>
+                        <Link to="/vfr" className="nav-link">
+                          <i className="fa fa-tshirt"></i>
                           Try Room
                         </Link>
                       </li>
 
-                      <li className="nav-item">
-                        <Link to="/shop/phone" className="nav-link">
-                          <i className="flaticon-smartphone"></i>
+                      {/* <li className="nav-item">
+                        <Link to="/wishlist" className="nav-link">
                           Wishlist
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/headphone" className="nav-link">
-                          <i className="flaticon-headphones"></i>
+                        <Link to="/cart" className="nav-link">
                           Cart
                         </Link>
-                      </li>
+                      </li> */}
 
                       {/* <li className="nav-item">
                         <Link to="/shop/watch" className="nav-link">
@@ -192,7 +190,7 @@ function Navbar() {
                     isActive={() => homeRoutes.includes(pathname)}
                     className="nav-link"
                   >
-                    Home 
+                    Home
                     {/* <i className="bx bx-chevron-down chevron-display"></i>
                     <span className="plus_icon">+</span> */}
                   </NavLink>
@@ -386,7 +384,7 @@ function Navbar() {
                     <li className="nav-item">
                       <NavLink to="/shop-left-sidebar" className="nav-link">
                         Eastern Wear
-                      </NavLink> 
+                      </NavLink>
                     </li>
 
                     <li className="nav-item">
@@ -431,8 +429,7 @@ function Navbar() {
                     <span className="plus_icon">+</span>
                   </NavLink>
                   <ul className="dropdown-menu">
-
-                  <li className="nav-item">
+                    <li className="nav-item">
                       <NavLink to="/shop-list-view" className="nav-link">
                         Western Wear
                       </NavLink>
@@ -441,7 +438,7 @@ function Navbar() {
                     <li className="nav-item">
                       <NavLink to="/shop-left-sidebar" className="nav-link">
                         Eastern Wear
-                      </NavLink> 
+                      </NavLink>
                     </li>
 
                     <li className="nav-item">
@@ -455,7 +452,7 @@ function Navbar() {
                         Winter Wear
                       </NavLink>
                     </li>
-                    
+
                     {/* <li className="nav-item">
                       <NavLink to="/blog" className="nav-link">
                         Blog
@@ -495,7 +492,7 @@ function Navbar() {
                 </li>
 
                 <li className="nav-item">
-                  <NavLink to="/contact" className="nav-link">
+                  <NavLink to="/vfr" className="nav-link">
                     Try Room
                   </NavLink>
                 </li>
@@ -540,26 +537,29 @@ function Navbar() {
                             {user && user.name}
                           </NavLink>
                         </li>
-                        <li className="nav-item">
-                          <NavLink to="/products" className="nav-link">
-                            Products
-                          </NavLink>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink to="/add-product" className="nav-link">
-                            Add Product
-                          </NavLink>
-                        </li>
+                        {user && user.role === "admin" && (
+                          <>
+                            <li className="nav-item">
+                              <NavLink to="/products" className="nav-link">
+                                Products
+                              </NavLink>
+                            </li>
+                            <li className="nav-item">
+                              <NavLink to="/add-product" className="nav-link">
+                                Add Product
+                              </NavLink>
+                            </li>
+                            <li className="nav-item">
+                              <NavLink to="/order" className="nav-link">
+                                Order
+                              </NavLink>
+                            </li>
+                          </>
+                        )}
 
                         <li className="nav-item">
                           <NavLink to="/cart" className="nav-link">
                             Cart
-                          </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                          <NavLink to="/order" className="nav-link">
-                            Order
                           </NavLink>
                         </li>
 
@@ -594,7 +594,7 @@ function Navbar() {
                 <div className="option-item  respo-nav">
                   <span>
                     Contact:
-                    <a href="tel:16545676789">(+1) 654 567 – 6789</a>
+                    <a href="tel:16545676789">0300-1234567</a>
                   </span>
                 </div>
               </div>
@@ -630,7 +630,7 @@ function Navbar() {
                 <div className="option-item">
                   <span>
                     Hotline:
-                    <a href="tel:16545676789">(+1) 654 567 – 6789</a>
+                    <a href="tel:16545676789">0300-1234567</a>
                   </span>
                 </div>
               </div>

@@ -2,13 +2,38 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Image } from "cloudinary-react";
+// import { Image } from "react-bootstrap";
 import CartContext from "../../contexts/cart-context";
+import { listProductDetails } from "../../redux/Product/ProductAction";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductsDetailsArea() {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const context = useContext(CartContext);
+
+  const dispatch = useDispatch();
+
+  const productDetailReducer = useSelector(
+    (state) => state.productDetailReducer
+  );
+  const { loading, error, product: productt } = productDetailReducer;
+
+  useEffect(() => {
+    // if (successProductReview) {
+    //   alert("Review Submitted!!");
+    //   setRating(0);
+    //   setComment("");
+    //   dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    // }
+    dispatch(listProductDetails(productId));
+    // dispatch(listProductInspectionDetails(match.params.id));
+  }, [dispatch]);
+
+  // if(product) {
+  //   console.log('Product ', productt.product.image, productId);
+  // }
 
   useEffect(() => {
     axios
@@ -41,13 +66,26 @@ function ProductsDetailsArea() {
               <div className="main-products-image">
                 <div className="slider slider-for">
                   <div>
-                    <Image
+                    {productt && productt.product && (
+                      <Image
+                        src={productt.product.image}
+                        alt={productt.product.name}
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        width="500"
+                        // height="200px"
+                        // style={{height: "700px"}}
+                        crop="scale"
+                      />
+                    )}
+                    {/* <h1>Image</h1> */}
+
+                    {/* <Image
                       key={product.image_public_id}
                       cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                       publicId={product.image_public_id}
                       width="500"
                       crop="scale"
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -68,24 +106,27 @@ function ProductsDetailsArea() {
                 </div>
 
                 <div className="price">
-                  <span className="old-price">$150.00</span>
-                  <span className="new-price">${product.price}</span>
+                  {/* <span className="old-price">$150.00</span> */}
+                  <span className="new-price">RS. {product.price}</span>
                 </div>
                 <p>{product.description}</p>
 
                 <ul className="products-info">
-                  <li>
+                  {/* <li>
                     <span>Availability:</span>{" "}
                     {product.total_in_stock > 0
                       ? `In stock (${product.total_in_stock})`
                       : "Stock finished"}
+                  </li> */}
+                  <li>
+                    <span>Type:</span> {product.type}
                   </li>
                   <li>
-                    <span>SKU:</span> <a href="#">L458-25</a>
+                    <span>Category:</span> {product.category}
                   </li>
                 </ul>
 
-                <div className="products-color-switch">
+                {/* <div className="products-color-switch">
                   <p className="available-color">
                     <span>Color</span> :
                     <a href="#" style={{ backgroundColor: "#a53c43" }}></a>
@@ -95,7 +136,7 @@ function ProductsDetailsArea() {
                     <a href="#" style={{ backgroundColor: "#000000" }}></a>
                     <a href="#" style={{ backgroundColor: "#808080" }}></a>
                   </p>
-                </div>
+                </div> */}
 
                 <div className="product-quantities">
                   <span>Quantities:</span>
@@ -139,7 +180,7 @@ function ProductsDetailsArea() {
                   </button>
                 </div>
 
-                <div className="products-share">
+                {/* <div className="products-share">
                   <ul className="social">
                     <li>
                       <span>Share:</span>
@@ -165,7 +206,7 @@ function ProductsDetailsArea() {
                       </a>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -220,14 +261,15 @@ function ProductsDetailsArea() {
               <h2>Overview</h2>
 
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                {productt && productt.product && productt.product.description}
+                {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
                 nisi ut aliquip ex ea com modo consequat. Duis aute irure dolor
                 in reprehenderit in voluptate velit esse cillum dolore fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident. */}
               </p>
-              <p>
+              {/* <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -257,7 +299,7 @@ function ProductsDetailsArea() {
                   Duis aute irure dolor in reprehenderit in voluptate velit esse
                   cillum dolore fugiat nulla pariatur.
                 </li>
-              </ul>
+              </ul> */}
             </div>
 
             <div className="tab-pane fade" id="reviews" role="tabpanel">
@@ -477,13 +519,13 @@ function ProductsDetailsArea() {
               <ul className="information-list">
                 <li>
                   Address:{" "}
-                  <span>4848 Hershell Hollow Road, Bothell, WA 89076</span>
+                  <span>Street 5 DHA Phase 5 Block B House 4</span>
                 </li>
                 <li>
-                  Phone: <a href="tel:+15143214567">+1 (514) 321-4567</a>
+                  Phone: <a href="tel:+15143214567">0300-1234567</a>
                 </li>
                 <li>
-                  Email: <a href="mailto:hello@ejon.com">hello@ejon.com</a>
+                  Email: <a href="mailto:hello@ejon.com">vfr23@gmail.com</a>
                 </li>
               </ul>
             </div>

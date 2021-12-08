@@ -63,7 +63,7 @@ function Shop({ match }) {
         showQuickView={showQuickView}
       />
 
-      <Partner paddingClass="ptb-50" />
+      {/* <Partner paddingClass="ptb-50" /> */}
       <Footer />
       <QuickView isOpen={isOpen} closeModal={closeModal} product={product} />
     </div>

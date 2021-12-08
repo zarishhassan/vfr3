@@ -7,6 +7,7 @@ const db = require("./config/db");
 const productRoutes = require("./routings/product");
 const userRoutes = require("./routings/user");
 const orderRoutes = require("./routings/order");
+const uploadRoutes = require("./routings/upload");
 
 const production = process.env.NODE_ENV === "production";
 
@@ -22,17 +23,24 @@ app.use(
     extended: true,
   })
 );
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // database connection
 db.makeDb();
 
+
 app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
+app.use("/upload", uploadRoutes);
 
-// const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// when we ready to get our payment we will hit this route and fetch this client ID
+app.get("/config/paypal", (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
+const __zirname = path.resolve();
+app.use("/uploads", express.static(path.join(__zirname, "/uploads")));
 
 app.get("/", (req, res) => {
   res.send("API running")

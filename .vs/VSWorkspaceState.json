@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\redux",
+    "\\client\\src\\redux\\Order",
+    "\\client\\src\\redux\\Product",
+    "\\src"
+  ],
+  "SelectedNode": "\\client\\src\\redux\\Product",
+  "PreviewInSolutionExplorer": false
+}

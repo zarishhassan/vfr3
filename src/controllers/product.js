@@ -3,7 +3,7 @@ const { cloudinary } = require("../utils/cloudinary");
 
 exports.fetchProducts = async (req, res) => {
   try {
-    const pageSize = 12
+    const pageSize = 10
     const page = Number(req.query.pageNumber) || 1
   
     const keyword = req.query.keyword
@@ -35,6 +35,7 @@ exports.addProduct = async (req, res) => {
     const category = req.body.category;
     const price = req.body.price;
     const color = req.body.color;
+    const image = req.body.image;
     const total_in_stock = req.body.total_in_stock;
     // const file = req.files.file;
 
@@ -45,7 +46,7 @@ exports.addProduct = async (req, res) => {
       category,
       price,
       color,
-      // images: file.name,
+      image,
       // image_public_id,
       reviews: [],
       total_in_stock,
@@ -63,7 +64,8 @@ exports.addProduct = async (req, res) => {
 exports.fetchProduct = async (req, res) => {
   try {
     const id = req.params.productId;
-    const product = await Product.findById({ _id: id });
+    // const product = await Product.findById({ _id: id });
+    const product = await Product.findById(req.params.id);
 
     res.status(200).json({
       product,

@@ -11,17 +11,17 @@ function AddProduct() {
   const productCreateReducer = useSelector(state => state.productCreateReducer)
   const {loading, error, success, product } = productCreateReducer
 
-  useEffect(() => {
-    dispatch(createProduct({
-    name: "Test",
-    description: "Test Description",
-    type: "Women",
-    price: 100,
-    category: "Eastern",
-    color: "black",
-    total_in_stock: 5
-    }))
-  }, [dispatch, createProduct])
+  // useEffect(() => {
+  //   dispatch(createProduct({
+  //   name: "Test",
+  //   description: "Test Description",
+  //   type: "Women",
+  //   price: 100,
+  //   category: "Eastern",
+  //   color: "black",
+  //   total_in_stock: 5
+  //   }))
+  // }, [dispatch, createProduct])
 
   if(product) {
     console.log('Product', product);
@@ -29,7 +29,7 @@ function AddProduct() {
   
   return (
     <div className="add-product-wrapper">
-    <h1>{product && product.color}</h1>
+    {/* <h1>{product && product.color}</h1> */}
       <PageTitle title="Add Product" />
       <AddProductArea />
     </div>

@@ -9,10 +9,9 @@ function Banner() {
       <div className="main-slider-item-box" >
         <div className="main-slider-content">
           <b style={{ color: 'white' }}>Big Sale Offer</b>
-          <h1 style={{ color: 'white' }}>Get the Best Deals on Headphone</h1>
+          <h2 style={{ color: 'white' }}>Get the Best Deals on Branded Clothes</h2>
           <p style={{ color: 'white' }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Satisfaction is priority
           </p>
 
           <div className="slider-btn">

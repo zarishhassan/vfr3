@@ -91,13 +91,22 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                   return (
                     <tr key={product._id} className="product_tr">
                       <td className="order_column1">
-                        <Image
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        width="50"
+                        // height="200px"
+                        // style={{height: "300px"}}
+                        crop="scale"
+                      />
+                        {/* <Image
                           key={index}
                           cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                           publicId={product.image_public_id}
                           width="50"
                           crop="scale"
-                        />
+                        /> */}
                       </td>
                       <td
                         onClick={() => goToDetails(product._id)}

@@ -25,7 +25,7 @@ function TopHeader({ shippingMessage, history }) {
       <div className="col-lg-6">
         <div className="top-header-content">
           <span>
-            <i className="flaticon-check"></i>
+            {/* <i className="flaticon-check"></i> */}
             {shippingMessage}
           </span>
         </div>
@@ -90,7 +90,7 @@ function TopHeader({ shippingMessage, history }) {
           <li>
             {/* <i className="bx bxs-lock-alt"></i> */}
             <span>
-              {!context.token && <Link to="/login">Login</Link>} Or{" "}
+              {!context.token && <Link to="/login">Login Or </Link>}
               {!context.token && <Link to="/register">Register</Link>}
               {context.token && (
                 <button className="logout-btn" onClick={handleLogout}>

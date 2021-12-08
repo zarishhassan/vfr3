@@ -1,9 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CartContext from "../../contexts/cart-context";
 import AuthContext from "../../contexts/auth-context";
+import { PayPalButton } from "react-paypal-button-v2";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 function CheckoutArea() {
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -15,20 +19,76 @@ function CheckoutArea() {
   const [postCode, setPostCode] = useState("");
   const [orderNotes, setOrderNotes] = useState("");
   const [message, setMessage] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [sdkReady, setSdkReady] = useState(false);
+  const [order, setOrder] = useState(null);
+  const [token, setToken] = useState(null);
 
   const context = useContext(CartContext);
   const authContext = useContext(AuthContext);
 
-   context.cartItems.itemsPrice =  context.cartItems &&
+  context.cartItems.itemsPrice =
+    context.cartItems &&
     context.cartItems.reduce((count, curItem) => {
-      return (
-        count +
-        parseInt(curItem.price) *
-          parseInt(curItem.quantity || 0)
-      );
-    }, 0)
+      return count + parseInt(curItem.price) * parseInt(curItem.quantity || 0);
+    }, 0);
 
+  // when the page or component loads, we will add it here the client id
+  useEffect(() => {
+    // if (!userInfo) {
+    //   history.push("/login");
+    // }
 
+    const _token = JSON.parse(localStorage.getItem("token"));
+    if (_token) {
+      setToken(_token);
+      console.log("Token ", token);
+    }
+
+    const addPayPalScript = async () => {
+      // fetching Data from the Client ID
+      const { data: clientId } = await axios.get("/config/paypal");
+      // console.log("clientId", data);
+
+      // <script
+      //   type="text/javascript"
+      //   src="https://www.paypal.com/sdk/js?client-id=AQwOmcQ7Dg4IzKkysyblW84-J_cD_z9bnd_V7T8W2RoMU9LvC_3gS6T8vLLuQJc3RZ0W4H5QhdN7ljC4"
+      // ></script>;
+
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.setAttribute("data-namespace", "paypal_sdk");
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+        console.log("Sdk on oload", sdkReady);
+      };
+      document.body.appendChild(script); // dynamically adding PayPal Script
+    };
+
+    // console.log("Window ", window.paypal);
+
+    // if (!order || successPay || successDeliver) {
+    //   dispatch({ type: ORDER_PAY_RESET });
+    //   dispatch({ type: ORDER_DELIVER_RESET });
+
+    //   dispatch(getOrderDetails(orderId));
+    // } else if (!order.isPaid) {
+    if (order && !order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+        console.log("Add Paypal", window.paypal);
+      } else {
+        console.log("Sdk REady");
+        setSdkReady(true);
+      }
+    }
+    addPayPalScript();
+
+    // }
+  }, [order]);
+  // }, [dispatch, orderId, successPay, successDeliver, order]);
 
   const submitOrder = (e) => {
     e.preventDefault();
@@ -49,10 +109,13 @@ function CheckoutArea() {
         city,
         postCode,
         orderNotes,
-        totalPrice:   context.cartItems.itemsPrice
+        totalPrice: context.cartItems.itemsPrice,
+        paymentMethod,
       })
       .then((res) => {
         if (res?.data?.message === "Order successfully added") {
+          console.log("Inside Res", res.data.order);
+          setOrder(res.data.order);
           localStorage.removeItem("cart-items");
           setFirstName("");
           setLastName("");
@@ -64,11 +127,50 @@ function CheckoutArea() {
           setCity("");
           setPostCode("");
           setOrderNotes("");
+          // setPaymentMethod("");
           setMessage(res.data.message);
         }
       })
       .catch((err) => console.log(err));
   };
+
+  const successPaymentHandler = (paymentResult) => {
+    console.log("payment result ", paymentResult);
+    // console.log(order)
+
+    console.log("Token insice button", token);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios.put(`/order/${order._id}`, paymentResult, config).then((res) => {
+      dispatch({});
+      return {};
+      // if (res?.data?.message === "Order successfully added") {
+      //   console.log("Inside Res", res.data.order);
+      //   setOrder(res.data.order);
+      //   localStorage.removeItem("cart-items");
+      //   setFirstName("");
+      //   setLastName("");
+      //   setCompanyName("");
+      //   setEmail("");
+      //   setPhone("");
+      //   setCountry("");
+      //   setAddress("");
+      //   setCity("");
+      //   setPostCode("");
+      //   setOrderNotes("");
+      //   // setPaymentMethod("");
+      //   setMessage(res.data.message);
+      // }
+    });
+    // dispatch(payOrder(orderId, paymentResult));
+  };
+
+  console.log("Order ", order);
 
   return (
     <section className="checkout-area ptb-50">
@@ -88,7 +190,7 @@ function CheckoutArea() {
         <form onSubmit={submitOrder}>
           <div className="row">
             <div className="col-lg-8 col-md-12">
-              <div className="user-actions">
+              {/* <div className="user-actions">
                 <i className="bx bx-log-in"></i>
                 <span>
                   Returning customer? <a href="#">Click here to login</a>
@@ -100,7 +202,7 @@ function CheckoutArea() {
                 <span>
                   Have a coupon? <a href="#">Click here to enter your code</a>
                 </span>
-              </div>
+              </div> */}
 
               <div className="billing-details">
                 <h3 className="title">Billing Details</h3>
@@ -240,7 +342,7 @@ function CheckoutArea() {
                     </div>
                   </div>
 
-                  <div className="col-lg-12 col-md-12">
+                  {/* <div className="col-lg-12 col-md-12">
                     <div className="form-check">
                       <input
                         type="checkbox"
@@ -270,7 +372,7 @@ function CheckoutArea() {
                         Ship to a different address?
                       </label>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
@@ -299,7 +401,7 @@ function CheckoutArea() {
                     <li>
                       Subtotal{" "}
                       <span>
-                        $
+                        RS
                         {context.cartItems &&
                           context.cartItems.reduce((count, curItem) => {
                             return (
@@ -311,12 +413,12 @@ function CheckoutArea() {
                       </span>
                     </li>
                     <li>
-                      Shipping <span>$30.00</span>
+                      Shipping <span>RS30.00</span>
                     </li>
                     <li>
                       Total{" "}
                       <span>
-                        $
+                        RS
                         {context.cartItems &&
                           context.cartItems.reduce((count, curItem) => {
                             return (
@@ -330,7 +432,7 @@ function CheckoutArea() {
                     <li>
                       Payable Total{" "}
                       <span>
-                        $
+                        RS
                         {context.cartItems &&
                           context.cartItems.reduce((count, curItem) => {
                             return (
@@ -352,24 +454,57 @@ function CheckoutArea() {
                       <input
                         type="radio"
                         id="cash-on-delivery"
-                        name="radio-group"
-                        checked
+                        name="paymentMethod"
+                        // name="radio-group"
+                        value="PayPal"
+                        // checked
+                        onChange={(e) => setPaymentMethod("PayPal")}
                       />
-                      <label htmlFor="cash-on-delivery">Cash on Delivery</label>
+                      <label htmlFor="cash-on-delivery">PayPal</label>
                     </p>
-                    <p>
+
+                    {/* <p>
+                      <input
+                        type="radio"
+                        id="PayPal"
+                        // name="paymentMethod"
+                        name="paymentMethod"
+                        value="PayPal"
+                        // label="PayPal"
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        // onChange={(e) => {console.log(e.target.value)}}
+                      />
+                      <label htmlFor="paypal">PayPal</label>
+                    </p> */}
+                    {/* <p>
                       <input
                         type="radio"
                         id="check-payments"
                         name="radio-group"
                       />
                       <label htmlFor="check-payments">Check Payments</label>
-                    </p>
-                    <p>
-                      <input type="radio" id="paypal" name="radio-group" />
-                      <label htmlFor="paypal">PayPal</label>
-                    </p>
+                    </p> */}
                   </div>
+                  {order && !order.isPaid && paymentMethod === "PayPal" && (
+                    <PayPalButton
+                      // className="paypal"
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                    // <>
+                    //   {!sdkReady ? (
+                    //     <div>Loading!!</div>
+                    //   ) : (
+                    //     <PayPalButton
+                    //       // amount={order.totalPrice}
+                    //       onSuccess={successPaymentHandler}
+                    //     />
+                    //   )}
+                    // </>
+
+                    // <button>Paypal</button>
+                  )}
+
                   <button
                     type="submit"
                     className="default-btn"

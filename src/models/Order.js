@@ -51,6 +51,19 @@ const orderSchema = new Schema({
     default: 0.0,
   },
 
+  paymentMethod: {
+    type: String,
+    required: true
+  },
+
+  // it comes from paypal, when you make the payment, after success we get some data back
+  paymentResult: {
+    id: { type: String },
+    status: { type: String },
+    update_time: { type: String },
+    email_addess: { type: String },
+  },
+
   isPaid: {
     type: Boolean,
     default: false,

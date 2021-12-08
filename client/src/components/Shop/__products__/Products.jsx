@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
 
-function Products({ products,showQuickView }) {
+function Products({ products, showQuickView }) {
   return (
     <>
-      <div className="products-filter-options">
+      {/* <div className="products-filter-options">
         <div className="row align-items-center">
           <div className="col-lg-4 col-md-4">
             <div className="d-lg-flex d-md-flex align-items-center">
@@ -46,7 +46,7 @@ function Products({ products,showQuickView }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div id="products-collections-filter" className="row">
         {products &&
@@ -56,15 +56,27 @@ function Products({ products,showQuickView }) {
                 <div className="single-shop-products">
                   <div className="shop-products-image">
                     <Link to={`/products-details/${product._id}`}>
-                      <Image
+                      {/* <Image
                         key={product._id}
                         cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                         publicId={product.image_public_id}
                         width="300"
                         crop="scale"
+                      /> */}
+
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        width="300"
+                        // height="200px"
+                        style={{height: "300px"}}
+                        crop="scale"
                       />
+
+                      {/* <Image src="/images/sample.jpg"/> */}
                     </Link>
-                    <div className="tag">New</div>
+                    {/* <div className="tag">New</div> */}
                     <ul className="shop-action">
                       <li>
                         <Link to="#">
@@ -111,7 +123,7 @@ function Products({ products,showQuickView }) {
                         <i className="bx bxs-star"></i>
                       </li>
                     </ul>
-                    <span>$150.00</span>
+                    <span>RS. {product.price}</span>
                   </div>
                 </div>
               </div>

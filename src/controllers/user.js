@@ -14,6 +14,7 @@ exports.postLogin = async (req, res) => {
 
     const { errors, valid } = validateLoginInput(email, password);
 
+
     if (!valid) {
       return res.status(401).json({
         errors,
@@ -30,6 +31,8 @@ exports.postLogin = async (req, res) => {
       });
     }
 
+
+
     const isEqual = await bcrypt.compare(password, user.password);
 
     if (!isEqual) {
@@ -38,12 +41,21 @@ exports.postLogin = async (req, res) => {
       });
     }
 
+    // res.json({email, password});
+
     const token = genAccTkn.generateAccessToken(user);
     return res.status(200).json({
       id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      username: user.username,
       token,
       tokenExpiration: "24h",
     });
+
+
   } catch (err) {
     res.status(500);
   }

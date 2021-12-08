@@ -1,6 +1,6 @@
-import cart1 from "../../assets/img/cart/cart-1.png";
-import cart2 from "../../assets/img/cart/cart-2.png";
-import cart3 from "../../assets/img/cart/cart-3.png";
+import cart6 from "../../assets/img/cart/cart-6.jpg";
+import cart7 from "../../assets/img/cart/cart-7.jpg";
+import cart8 from "../../assets/img/cart/cart-8.jpg";
 import cart4 from "../../assets/img/cart/cart-4.png";
 import cart5 from "../../assets/img/cart/cart-5.png";
 import { Link } from "react-router-dom";
@@ -25,16 +25,16 @@ function WishListArea() {
 
                 <td className="product-thumbnail">
                   <a href="#">
-                    <img src={cart1} alt="item" />
+                    <img src={cart6} alt="item" />
                   </a>
                 </td>
 
                 <td className="product-name">
-                  <Link to="/products-details/60447200e3108c0a9086757c">Bluetooth Headphone</Link>
+                  <Link to="/products-details/60447200e3108c0a9086757c">Khaddar Suit</Link>
                 </td>
 
                 <td className="product-price">
-                  <span className="unit-amount">$75.00</span>
+                  <span className="unit-amount">RS 75.00</span>
                 </td>
 
                 <td className="product-stock">
@@ -59,16 +59,16 @@ function WishListArea() {
 
                 <td className="product-thumbnail">
                   <a href="#">
-                    <img src={cart2} alt="item" />
+                    <img src={cart7} alt="item" />
                   </a>
                 </td>
 
                 <td className="product-name">
-                  <Link to="/products-details/60447200e3108c0a9086757c">Protable Speakers</Link>
+                  <Link to="/products-details/60447200e3108c0a9086757c">Khaas Suit</Link>
                 </td>
 
                 <td className="product-price">
-                  <span className="unit-amount">$175.00</span>
+                  <span className="unit-amount">RS 175.00</span>
                 </td>
 
                 <td className="product-stock">
@@ -93,16 +93,16 @@ function WishListArea() {
 
                 <td className="product-thumbnail">
                   <a href="#">
-                    <img src={cart3} alt="item" />
+                    <img src={cart8} alt="item" />
                   </a>
                 </td>
 
                 <td className="product-name">
-                  <Link to="/products-details/60447200e3108c0a9086757c">Digital Camera</Link>
+                  <Link to="/products-details/60447200e3108c0a9086757c">Eastern Shirt</Link>
                 </td>
 
                 <td className="product-price">
-                  <span className="unit-amount">$175.00</span>
+                  <span className="unit-amount">RS 175.00</span>
                 </td>
 
                 <td className="product-stock">
@@ -118,7 +118,7 @@ function WishListArea() {
                 </td>
               </tr>
 
-              <tr>
+              {/* <tr>
                 <td className="product-remove">
                   <a href="#" className="remove">
                     <i className="bx bx-x"></i>
@@ -136,7 +136,7 @@ function WishListArea() {
                 </td>
 
                 <td className="product-price">
-                  <span className="unit-amount">$175.00</span>
+                  <span className="unit-amount">RS 175.00</span>
                 </td>
 
                 <td className="product-stock">
@@ -170,7 +170,7 @@ function WishListArea() {
                 </td>
 
                 <td className="product-price">
-                  <span className="unit-amount">$175.00</span>
+                  <span className="unit-amount">RS 175.00</span>
                 </td>
 
                 <td className="product-stock">
@@ -184,7 +184,7 @@ function WishListArea() {
                     <span></span>
                   </a>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

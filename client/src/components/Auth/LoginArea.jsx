@@ -11,6 +11,7 @@ function LoginArea({ customClass = "", history }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log("Inside Log in");
     fetch("/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,8 +26,11 @@ function LoginArea({ customClass = "", history }) {
           email.current.value = "";
           password.current.value = "";
           context.login(res.token, res.id, res.tokenExpiration);
+          console.log("Inside if after Login ", res.token, res.id);
           localStorage.setItem("token", JSON.stringify(res.token));
           localStorage.setItem("userId", JSON.stringify(res.id));
+          localStorage.setItem("role", JSON.stringify(res.role));
+          localStorage.setItem("name", JSON.stringify(res.name));
           localStorage.setItem(
             "tokenExpiration",
             JSON.stringify(res.tokenExpiration)

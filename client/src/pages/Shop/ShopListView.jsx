@@ -34,7 +34,7 @@ function ShopListView() {
     <div className="shop-list-view-wrapper">
       <PageTitle title="Shop List View" />
       <ShopListViewArea products={products}  showQuickView={showQuickView} />
-      <Partner paddingClass=" pbt-50" />
+      {/* <Partner paddingClass=" pbt-50" /> */}
       <Footer />
       <QuickView isOpen={isOpen} closeModal={closeModal} product={product} />
     </div>

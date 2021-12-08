@@ -60,6 +60,7 @@ function CartArea() {
                                   cloudName={
                                     process.env.REACT_APP_CLOUDINARY_NAME
                                   }
+                                  // src={cartItem.image}
                                   publicId={cartItem.image_public_id}
                                   width="70"
                                   crop="scale"
@@ -75,7 +76,7 @@ function CartArea() {
 
                             <td className="product-price">
                               <span className="unit-amount">
-                                ${cartItem.price}
+                                RS {cartItem.price}
                               </span>
                             </td>
 
@@ -120,7 +121,7 @@ function CartArea() {
 
                             <td className="product-subtotal">
                               <span className="subtotal-amount">
-                                ${cartItem.quantity * parseInt(cartItem.price)}
+                                RS {cartItem.quantity * parseInt(cartItem.price)}
                               </span>
                             </td>
                           </tr>
@@ -135,7 +136,7 @@ function CartArea() {
                 </div>
               )}
 
-              <div className="cart-buttons">
+              {/* <div className="cart-buttons">
                 <div className="row align-items-center">
                   <div className="col-lg-7 col-sm-7 col-md-7">
                     <div className="shopping-coupon-code">
@@ -150,7 +151,7 @@ function CartArea() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </form>
           </div>
 
@@ -162,7 +163,7 @@ function CartArea() {
                 <li>
                   Subtotal{" "}
                   <span>
-                    $
+                    RS
                     {(context.cartItems &&
                       context.cartItems.reduce((count, curItem) => {
                         return (
@@ -175,12 +176,12 @@ function CartArea() {
                   </span>
                 </li>
                 <li>
-                  Shipping <span>$30.00</span>
+                  Shipping <span>RS30.00</span>
                 </li>
                 <li>
                   Total{" "}
                   <span>
-                    $
+                    RS
                     {((context.cartItems &&
                       context.cartItems.reduce((count, curItem) => {
                         return (
@@ -195,7 +196,7 @@ function CartArea() {
                 <li>
                   Payable Total{" "}
                   <span>
-                    $
+                    RS
                     {((context.cartItems &&
                       context.cartItems.reduce((count, curItem) => {
                         return (

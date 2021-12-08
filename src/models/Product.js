@@ -18,10 +18,10 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  // images: {
-  //   type: String,
-  //   // required: true,
-  // },
+  image: {
+    type: String,
+    required: true,
+  },
   // image_public_id: {
   //   type: String,
   //   required: false

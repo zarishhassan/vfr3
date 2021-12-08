@@ -105,7 +105,7 @@ function HomeFour() {
             showQuickView={showQuickView}
           /> */}
           <Testimonial paddingClass=" pt-50" />
-          <LatestNews paddingClass="pt-50 pb-20" />
+          {/* <LatestNews paddingClass="pt-50 pb-20" /> */}
           {/* <Partner paddingClass=" ptb-50" /> */}
           <Footer />
           <QuickView

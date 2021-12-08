@@ -40,15 +40,12 @@ function Testimonial({ paddingClass = "" }) {
             </ul>
             <div className="content">
               <p>
-                “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra
-                maecenas accumsan.”
+                “There's a reason good fabrics have a cost. They're done with good quality to last.”
               </p>
 
               <div className="name">
-                <h3>David Warner</h3>
-                <span>CEO at Envato</span>
+                <h3>Zac Posen</h3>
+                {/* <span>CEO at Envato</span> */}
               </div>
             </div>
           </div>

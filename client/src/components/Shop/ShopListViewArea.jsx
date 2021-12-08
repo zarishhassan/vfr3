@@ -15,7 +15,7 @@ function ShopListViewArea({ products = [],  showQuickView }) {
             <Products products={products} showQuickView={showQuickView} />
           </div>
 
-          <div className="col-lg-4 col-md-12">
+          {/* <div className="col-lg-4 col-md-12">
             <aside className="widget-area">
               <div className="widget widget_search">
                 <Search />
@@ -37,11 +37,11 @@ function ShopListViewArea({ products = [],  showQuickView }) {
                 <BestSellerProducts />
               </div>
 
-              {/* <div className="widget widget_arrival">
+              <div className="widget widget_arrival">
                 <Arrival />
-              </div> */}
+              </div>
             </aside>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
