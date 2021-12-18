@@ -22,32 +22,47 @@ function Products() {
     prod_id,
     prod_name,
     prod_description,
-    prod_image,
     prod_type,
-    prod_color,
+    prod_category,
     prod_price,
+    prod_color,
     prod_instock,
-    imagePublicId,
-    prod_image_public_id
+    prod_image
+    // imagePublicId,
+    // prod_image_public_id
   ) => {
-    const formData = new FormData();
-    formData.append("product_id", prod_id);
-    formData.append("product_name", prod_name);
-    formData.append("product_description", prod_description);
+    // const formData = new FormData();
+    // formData.append("product_id", prod_id);
+    // formData.append("product_name", prod_name);
+    // formData.append("product_description", prod_description);
 
-    formData.append("product_type", prod_type);
-    formData.append("product_color", prod_color);
-    formData.append("product_price", prod_price);
-    formData.append("total_in_stock", prod_instock);
-    formData.append("image_public_id", prod_image);
-    formData.append("upload_preset", "econix");
+    // formData.append("product_type", prod_type);
+    // formData.append("product_color", prod_color);
+    // formData.append("product_price", prod_price);
+    // formData.append("total_in_stock", prod_instock);
+    // formData.append("image_public_id", prod_image);
+    // formData.append("upload_preset", "econix");
 
     axios
-      .post("/products/edit-product", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      .post(
+        "/products/edit-product",
+        {
+          prod_id,
+          prod_name,
+          prod_description,
+          prod_type,
+          prod_category,
+          prod_price,
+          prod_color,
+          prod_instock,
+          prod_image,
         },
-      })
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         if (res.data.message === "Product edited") {
           return axios.get("/products/").then((res) => {

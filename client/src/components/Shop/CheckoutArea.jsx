@@ -39,6 +39,12 @@ function CheckoutArea() {
     //   history.push("/login");
     // }
 
+  //   let isMounted = true;               // note mutable flag
+  // someAsyncOperation().then(data => {
+  //   if (isMounted) setState(data);    // add conditional check
+  // })
+  // return () => { isMounted = false };
+
     const _token = JSON.parse(localStorage.getItem("token"));
     if (_token) {
       setToken(_token);
@@ -146,26 +152,28 @@ function CheckoutArea() {
         Authorization: `Bearer ${token}`,
       },
     };
-    axios.put(`/order/${order._id}`, paymentResult, config).then((res) => {
-      dispatch({});
-      return {};
-      // if (res?.data?.message === "Order successfully added") {
-      //   console.log("Inside Res", res.data.order);
-      //   setOrder(res.data.order);
-      //   localStorage.removeItem("cart-items");
-      //   setFirstName("");
-      //   setLastName("");
-      //   setCompanyName("");
-      //   setEmail("");
-      //   setPhone("");
-      //   setCountry("");
-      //   setAddress("");
-      //   setCity("");
-      //   setPostCode("");
-      //   setOrderNotes("");
-      //   // setPaymentMethod("");
-      //   setMessage(res.data.message);
-      // }
+    axios.put(`/order/${order._id}/pay`, paymentResult, config).then((res) => {
+      // dispatch({});
+      // return {};
+      if (res?.data) {
+        console.log("Inside Res After Payment", res.data);
+        setOrder(res.data);
+
+        //   setOrder(res.data.order);
+        //   localStorage.removeItem("cart-items");
+        //   setFirstName("");
+        //   setLastName("");
+        //   setCompanyName("");
+        //   setEmail("");
+        //   setPhone("");
+        //   setCountry("");
+        //   setAddress("");
+        //   setCity("");
+        //   setPostCode("");
+        //   setOrderNotes("");
+        //   // setPaymentMethod("");
+        //   setMessage(res.data.message);
+      }
     });
     // dispatch(payOrder(orderId, paymentResult));
   };
@@ -505,13 +513,15 @@ function CheckoutArea() {
                     // <button>Paypal</button>
                   )}
 
-                  <button
-                    type="submit"
-                    className="default-btn"
-                    style={{ cursor: "pointer" }}
-                  >
-                    Place Order
-                  </button>
+                  {/* {order && !order.isPaid && ( */}
+                    <button
+                      type="submit"
+                      className="default-btn"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Place Order
+                    </button>
+                  {/* )} */}
                 </div>
               </div>
             </div>

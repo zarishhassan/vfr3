@@ -6,9 +6,9 @@ import Footer from "../../components/Footer/Footer";
 import ShopListViewArea from "../../components/Shop/ShopListViewArea";
 import QuickView from "../../components/Products/QuickView";
 
-function ShopListView() {
+function WomenProducts() {
   const [products, setProducts] = useState([]);
-  const [menWestern, setMenWestern] = useState([]);
+  const [menEvening, setMenEvening] = useState([]);
   const [product, setProduct] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,26 +31,26 @@ function ShopListView() {
       .catch((err) => console.log(err));
   }, []);
 
-  let menWest = []
+  let menEven = []
 
   if(products && products.length > 0) {
     products.map(product => {
-      if(product.type === "men" && product.category === "western") {
-        menWest.push(product)
+      if(product.type === "women") {
+        menEven.push(product)
         // setMenWestern(product)
       }
     })
   }
 
-  if(menWest.length > 0){
-    console.log('MEn West ', menWest);
+  if(menEven.length > 0){
+    console.log('Men Evening ', menEven);
   }
 
   return (
     <div className="shop-list-view-wrapper">
       <PageTitle title="Shop List View" />
       {/* {product && product.type === "men" && product.category === "western" && ( */}
-        <ShopListViewArea products={menWest} showQuickView={showQuickView} />
+        <ShopListViewArea products={menEven} showQuickView={showQuickView} />
       {/* )} */}
       {/* <Partner paddingClass=" pbt-50" /> */}
       <Footer />
@@ -59,4 +59,4 @@ function ShopListView() {
   );
 }
 
-export default ShopListView;
+export default WomenProducts;

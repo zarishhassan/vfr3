@@ -110,14 +110,14 @@ function Navbar() {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link to="/shop-list-view" className="nav-link">
+                        <Link to="/men" className="nav-link">
                           <i className="fa fa-male"></i>
                           Men
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop-list-view" className="nav-link">
+                        <Link to="/women" className="nav-link">
                           <i className="fa fa-female"></i>
                           Women
                         </Link>
@@ -361,8 +361,8 @@ function Navbar() {
 
                 <li className="nav-item">
                   <NavLink
-                    to="/shop"
-                    isActive={() => shopRoutes.includes(pathname)}
+                    to="/men"
+                    // isActive={() => shopRoutes.includes(pathname)}
                     className="nav-link"
                   >
                     Men <i className="bx bx-chevron-down chevron-display"></i>
@@ -376,25 +376,25 @@ function Navbar() {
                     </li> */}
 
                     <li className="nav-item">
-                      <NavLink to="/shop-list-view" className="nav-link">
+                      <NavLink to="/men/western" className="nav-link">
                         Western Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-left-sidebar" className="nav-link">
+                      <NavLink to="/men/eastern" className="nav-link">
                         Eastern Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-right-sidebar" className="nav-link">
+                      <NavLink to="/men/evening" className="nav-link">
                         Evening Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-full-width" className="nav-link">
+                      <NavLink to="/men/winter" className="nav-link">
                         Winter Wear
                       </NavLink>
                     </li>
@@ -421,8 +421,8 @@ function Navbar() {
 
                 <li className="nav-item">
                   <NavLink
-                    to="/blog"
-                    isActive={() => blogRoutes.includes(pathname)}
+                    to="/women"
+                    // isActive={() => blogRoutes.includes(pathname)}
                     className="nav-link"
                   >
                     Women <i className="bx bx-chevron-down chevron-display"></i>
@@ -430,25 +430,25 @@ function Navbar() {
                   </NavLink>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
-                      <NavLink to="/shop-list-view" className="nav-link">
+                      <NavLink to="/women/western" className="nav-link">
                         Western Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-left-sidebar" className="nav-link">
+                      <NavLink to="/women/eastern" className="nav-link">
                         Eastern Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-right-sidebar" className="nav-link">
+                      <NavLink to="/women/evening" className="nav-link">
                         Evening Wear
                       </NavLink>
                     </li>
 
                     <li className="nav-item">
-                      <NavLink to="/shop-full-width" className="nav-link">
+                      <NavLink to="/women/winter" className="nav-link">
                         Winter Wear
                       </NavLink>
                     </li>
@@ -557,17 +557,21 @@ function Navbar() {
                           </>
                         )}
 
-                        <li className="nav-item">
-                          <NavLink to="/cart" className="nav-link">
-                            Cart
-                          </NavLink>
-                        </li>
+                        {user && user.role === "user" && (
+                          <>
+                            <li className="nav-item">
+                              <NavLink to="/cart" className="nav-link">
+                                Cart
+                              </NavLink>
+                            </li>
 
-                        <li className="nav-item">
-                          <NavLink to="/wishlist" className="nav-link">
-                            Wishlist
-                          </NavLink>
-                        </li>
+                            <li className="nav-item">
+                              <NavLink to="/wishlist" className="nav-link">
+                                Wishlist
+                              </NavLink>
+                            </li>
+                          </>
+                        )}
 
                         <hr />
 

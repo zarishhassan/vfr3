@@ -50,6 +50,15 @@ import MiddleHeader from "./components/Layout/MiddleHeader";
 import ShopArea from "./components/Shop/ShopArea";
 import Navbar from "./components/Layout/Navbar";
 import TopHeader from "./components/Layout/TopHeader";
+import MenEastern from "./pages/Shop/MenEastern";
+import MenEvening from "./pages/Shop/MenEvening";
+import MenWinter from "./pages/Shop/MenWinter";
+import WomenEastern from "./pages/Shop/WomenEastern";
+import WomenWinter from "./pages/Shop/WomenWinter";
+import WomenEvening from "./pages/Shop/WomenEvening";
+import WomenWestern from "./pages/Shop/WomenWestern";
+import MenProducts from "./pages/Shop/MenProducts";
+import WomenProducts from "./pages/Shop/WomenProducts";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -181,7 +190,16 @@ function App() {
                 path="/search/:keyword/page/:pageNumber"
                 component={Shop}
               />
-              <Route path="/shop-list-view" component={ShopListView} />
+              <Route path="/men/western" component={ShopListView} exact/>
+              <Route path="/men" component={MenProducts} exact/>
+              <Route path="/women" component={WomenProducts} exact/>
+              <Route path="/women/western" component={WomenWestern} exact/>
+              <Route path="/men/eastern" component={MenEastern} exact/>
+              <Route path="/women/eastern" component={WomenEastern} exact/>
+              <Route path="/men/evening" component={MenEvening} exact/>
+              <Route path="/women/evening" component={WomenEvening} exact/>
+              <Route path="/men/winter" component={MenWinter} exact/>
+              <Route path="/women/winter" component={WomenWinter} exact/>
               <Route path="/shop-left-sidebar" component={ShopLeftSidebar} />
               <Route path="/shop-right-sidebar" component={ShopRightSidebar} />
               <Route path="/shop-full-width" component={ShopFullWidth} />

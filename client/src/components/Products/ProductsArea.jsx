@@ -5,11 +5,12 @@ import axios from "axios";
 import authContext from "../../contexts/auth-context";
 
 function ProductsArea({ products, history, editProduct, deleteProduct }) {
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
   const [price, setPrice] = useState("");
   const [inStock, setInStock] = useState("");
@@ -37,29 +38,56 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
     setImagePublicId(imagePublicId);
   };
 
-  const openEditModal = (product, imagePublicId) => {
+  console.log('Edit  ', editProduct);
+
+  const openEditModal = (product) => {
+    console.log('Product Id ', product._id);
     setProduct(product);
     setName(product.name);
     setDescription(product.description);
-    setProductImages(product.image_public_id);
+    // setProductImages(product.image_public_id);
     setType(product.type);
-    setColor(product.color);
+    setCategory(product.category);
     setPrice(product.price);
+    setColor(product.color);
     setInStock(product.total_in_stock);
-    setImagePublicId(imagePublicId);
+    setImage(product.image);
+    // setImagePublicId(imagePublicId);
   };
 
+  // this is async since we are passing http request
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]; // you can upload multiple images, but we get 1st by files[0]
+    const formData = new FormData(); // this is vanila JavaScript
+    formData.append("image", file);
+    setUploading(true);
 
-  
-  const handleChange = async e => {
+    try {
+      const config = {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
 
+      const { data } = await axios.post("/upload", formData, config);
+
+      setImage(data);
+
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
+  };
+
+  const handleChange = async (e) => {
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "econix");
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     };
 
@@ -76,73 +104,74 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
     <div className="products-area-wrap container">
       {true ? (
         <>
-        <div className="container">
-          <table className="order_list_table product_list_table">
-            <thead>
-              <tr className="order_table100_head">
-                <th className="order_column1">Image</th>
-                <th className="order_column1">Name</th>
-                <th className="order_column1">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products &&
-                products.map((product, index) => {
-                  return (
-                    <tr key={product._id} className="product_tr">
-                      <td className="order_column1">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                        width="50"
-                        // height="200px"
-                        // style={{height: "300px"}}
-                        crop="scale"
-                      />
-                        {/* <Image
+          <div className="container">
+            <table className="order_list_table product_list_table">
+              <thead>
+                <tr className="order_table100_head">
+                  <th className="order_column1">Image</th>
+                  <th className="order_column1">Name</th>
+                  <th className="order_column1">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products &&
+                  products.map((product, index) => {
+                    return (
+                      <tr key={product._id} className="product_tr">
+                        <td className="order_column1">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                            width="50"
+                            // height="200px"
+                            // style={{height: "300px"}}
+                            crop="scale"
+                          />
+                          {/* <Image
                           key={index}
                           cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                           publicId={product.image_public_id}
                           width="50"
                           crop="scale"
                         /> */}
-                      </td>
-                      <td
-                        onClick={() => goToDetails(product._id)}
-                        style={{ cursor: "pointer" }}
-                        className="order_column2"
-                      >
-                        {product.name}
-                      </td>
-                      <td className="order_column4">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            openDeleteModal(product, product.imageId)
-                          }
-                          className="btn btn-danger"
-                          data-toggle="modal"
-                          data-target="#deleteModal"
+                        </td>
+                        <td
+                          onClick={() => goToDetails(product._id)}
+                          style={{ cursor: "pointer" }}
+                          className="order_column2"
                         >
-                          Delete
-                        </button>{" "}
-                        <button
-                          className="btn btn-primary"
-                          data-toggle="modal"
-                          data-target="#editModal"
-                          onClick={() =>
-                            openEditModal(product, product.imageId)
-                          }
-                        >
-                          Edit
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+                          {product.name}
+                        </td>
+                        <td className="order_column4">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              openDeleteModal(product, product.imageId)
+                            }
+                            className="btn btn-danger"
+                            data-toggle="modal"
+                            data-target="#deleteModal"
+                          >
+                            Delete
+                          </button>{" "}
+                          <button
+                            className="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#editModal"
+                            onClick={
+                              () => openEditModal(product)
+                              // openEditModal(product, product.imageId)
+                            }
+                          >
+                            Edit
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
           </div>
           <div
             className="modal fade"
@@ -234,14 +263,43 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="product_images">Product Images</label>
+                      <label htmlFor="product_images">Product Image</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Image URL"
+                        value={image}
+                        // accept="image/*"
+                        onChange={(e) => setImage(e.target.value)}
+                        // onChange={(e) => setImage(e.target.files[0])}
+                      />
+                      {/* {image === '' && <p className="error_color">{errors.product_images}</p>} */}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="product_images">Choose File</label>
+                      <input
+                        type="file"
+                        // custom
+                        className="form-control"
+                        // placeholder="Enter Image URL"
+                        // value={image}
+                        // accept="image/*"
+                        onChange={uploadFileHandler}
+                        // onChange={(e) => setImage(e.target.files[0])}
+                      />
+                      {/* {image === '' && <p className="error_color">{errors.product_images}</p>} */}
+                    </div>
+
+                    {/* <div className="form-group">
+                      <label htmlFor="product_images">Product Image</label>
                       <input
                         type="file"
                         className="form-control"
                         accept="image/*"
                         onChange={handleChange}
                       />
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                       <select
@@ -250,13 +308,26 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                         onChange={(e) => setType(e.target.value)}
                       >
                         <option>All Type</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="cameras">Cameras</option>
-                        <option value="computers">Computers</option>
-                        <option value="laptop">Laptop</option>
-                        <option value="mobile">Mobile</option>
+                        <option value="men">Men</option>
+                        <option value="women">Women</option>
                       </select>
                     </div>
+
+                    <div className="form-group">
+                      {/* <label htmlFor="category">Product Category</label> */}
+                      <select
+                        className="form-control"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                      >
+                        <option>All Type</option>
+                        <option value="eastern">Eastern Wear</option>
+                        <option value="western">Western Wear</option>
+                        <option value="evening">Evening Wear</option>
+                        <option value="winter">Winter Wear</option>
+                      </select>
+                    </div>
+
                     <div className="form-group">
                       <input
                         type="text"
@@ -303,11 +374,13 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                         product._id,
                         name,
                         description,
-                        product_images,
+                        // product_images,
                         type,
-                        color,
+                        category,
                         price,
-                        inStock
+                        color,
+                        inStock,
+                        image,
                       )
                     }
                   >
