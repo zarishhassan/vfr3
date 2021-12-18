@@ -70,6 +70,7 @@ function App() {
 
   useEffect(() => {
     const _token = JSON.parse(localStorage.getItem("token"));
+    
     const tokenExp = JSON.parse(localStorage.getItem("tokenExpiration"));
     const userIdLocal = JSON.parse(localStorage.getItem("userId"));
     const userRoleLocal = JSON.parse(localStorage.getItem("role"));
