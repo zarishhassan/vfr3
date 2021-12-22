@@ -60,6 +60,8 @@ import WomenWestern from "./pages/Shop/WomenWestern";
 import MenProducts from "./pages/Shop/MenProducts";
 import WomenProducts from "./pages/Shop/WomenProducts";
 
+import TryRoom from "./pages/Home/Tryroom"
+
 function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState("");
@@ -191,6 +193,7 @@ function App() {
                 path="/search/:keyword/page/:pageNumber"
                 component={Shop}
               />
+              <Route path='/vfr' component={TryRoom} exact/>
               <Route path="/men/western" component={ShopListView} exact/>
               <Route path="/men" component={MenProducts} exact/>
               <Route path="/women" component={WomenProducts} exact/>
