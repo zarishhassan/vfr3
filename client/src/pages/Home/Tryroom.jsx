@@ -113,7 +113,7 @@ function TryRoom() {
       },
     };
 
-    const info = { image: image2, height };
+    const info = { image: image1, height };
 
     await axios
       .post("http://127.0.0.1:5000/bodymeasure", info, config)

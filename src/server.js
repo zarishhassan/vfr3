@@ -52,4 +52,4 @@ production && (
   })
 )
 
-app.listen(process.env.PORT || 5000, console.log('Server is Running'));
+app.listen(process.env.PORT || 4000, console.log('Server is Running'));
