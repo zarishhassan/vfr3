@@ -48,7 +48,7 @@ function WomenProducts() {
 
   return (
     <div className="shop-list-view-wrapper">
-      <PageTitle title="Shop List View" />
+      <PageTitle title="Women Clothes" />
       {/* {product && product.type === "men" && product.category === "western" && ( */}
         <ShopListViewArea products={menEven} showQuickView={showQuickView} />
       {/* )} */}

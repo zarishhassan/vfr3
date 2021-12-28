@@ -18,6 +18,8 @@ function CartArea() {
       total_in_stock: cartItem.total_in_stock,
       image_public_id: cartItem.image_public_id,
       quantity,
+      size: cartItem.size,
+      image: cartItem.image,
     };
     context.addItemToCart(currentItem);
   };
@@ -36,6 +38,7 @@ function CartArea() {
                       <th scope="col">Name</th>
                       <th scope="col">Unit Price</th>
                       <th scope="col">Quantity</th>
+                      <th scope="col">Size</th>
                       <th scope="col">Total</th>
                     </tr>
                   </thead>
@@ -60,8 +63,8 @@ function CartArea() {
                                   cloudName={
                                     process.env.REACT_APP_CLOUDINARY_NAME
                                   }
-                                  // src={cartItem.image}
-                                  publicId={cartItem.image_public_id}
+                                  src={cartItem.image}
+                                  // publicId={cartItem.image_public_id}
                                   width="70"
                                   crop="scale"
                                 />
@@ -114,6 +117,12 @@ function CartArea() {
                                     )
                                   }
                                 >
+                                  {cartItem.quantity >
+                                    cartItem.total_in_stock &&
+                                    updateQuantity(
+                                      cartItem,
+                                      parseInt(cartItem.quantity - 1)
+                                    )}
                                   <i className="bx bx-plus"></i>
                                 </span>
                               </div>
@@ -121,7 +130,15 @@ function CartArea() {
 
                             <td className="product-subtotal">
                               <span className="subtotal-amount">
-                                RS {cartItem.quantity * parseInt(cartItem.price)}
+                                {cartItem.size}
+                                {/* RS {cartItem.quantity * parseInt(cartItem.price)} */}
+                              </span>
+                            </td>
+
+                            <td className="product-subtotal">
+                              <span className="subtotal-amount">
+                                RS{" "}
+                                {cartItem.quantity * parseInt(cartItem.price)}
                               </span>
                             </td>
                           </tr>

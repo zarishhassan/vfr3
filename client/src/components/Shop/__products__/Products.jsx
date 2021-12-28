@@ -106,7 +106,7 @@ function Products({ products, showQuickView }) {
                         {product.name}
                       </Link>
                     </h3>
-                    <ul className="rating">
+                    {/* <ul className="rating">
                       <li>
                         <i className="bx bxs-star"></i>
                       </li>
@@ -122,7 +122,7 @@ function Products({ products, showQuickView }) {
                       <li>
                         <i className="bx bxs-star"></i>
                       </li>
-                    </ul>
+                    </ul> */}
                     <span>RS. {product.price}</span>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ function Products({ products, showQuickView }) {
             );
           })}
 
-        <div className="col-lg-12 col-md-12">
+        {/* <div className="col-lg-12 col-md-12">
           <div className="pagination-area">
             <a href="#" className="prev page-numbers">
               <i className="flaticon-left-arrow"></i>
@@ -151,7 +151,7 @@ function Products({ products, showQuickView }) {
               <i className="flaticon-right-arrow"></i>
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

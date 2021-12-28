@@ -48,7 +48,7 @@ exports.addProduct = async (req, res) => {
       price,
       color,
       image,
-      size,
+      // size,
       // image_public_id,
       reviews: [],
       total_in_stock,
@@ -143,6 +143,7 @@ exports.editProduct = async (req, res) => {
       message: "Product edited",
       product,
     });
+    Product.save();
   } catch (err) {
     res.status(500);
   }

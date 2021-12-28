@@ -48,7 +48,7 @@ function ShopListView() {
 
   return (
     <div className="shop-list-view-wrapper">
-      <PageTitle title="Shop List View" />
+      <PageTitle title="Men Western" />
       {/* {product && product.type === "men" && product.category === "western" && ( */}
         <ShopListViewArea products={menWest} showQuickView={showQuickView} />
       {/* )} */}

@@ -85,7 +85,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                         {product.name}
                       </Link>
                     </h3>
-                    <ul className="rating">
+                    {/* <ul className="rating">
                       <li>
                         <i className="bx bxs-star"></i>
                       </li>
@@ -101,7 +101,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                       <li>
                         <i className="bx bxs-star"></i>
                       </li>
-                    </ul>
+                    </ul> */}
                     <span>RS {product.price}</span>
                   </div>
                 </div>

@@ -63,7 +63,7 @@ function AddProductArea() {
         color: product_color,
         total_in_stock: product_totalInStock,
         image: image,
-        size: product_size
+        // size: product_size
       })
     );
     setMessage(true)
@@ -261,7 +261,7 @@ function AddProductArea() {
               )}
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="category">Product Size</label>
               <select
                 className="form-control"
@@ -277,7 +277,7 @@ function AddProductArea() {
               {product_size === "" && (
                 <p className="error_color">{errors.product_size}</p>
               )}
-            </div>
+            </div> */}
 
             <div className="form-group">
               <label htmlFor="product_color">Product Color</label>

@@ -11,6 +11,8 @@ function ProductsDetailsArea() {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState({});
   const { productId } = useParams();
+  const [product_size, setProductSize] = useState("");
+
   const context = useContext(CartContext);
 
   const dispatch = useDispatch();
@@ -51,8 +53,10 @@ function ProductsDetailsArea() {
       price: product.price,
       type: product.type,
       total_in_stock: product.total_in_stock,
-      image_public_id: product.image_public_id,
+      // image_public_id: product.image_public_id,
+      image: product.image,
       quantity,
+      size: product_size
     };
     context.addItemToCart(currentItem);
   };
@@ -95,7 +99,7 @@ function ProductsDetailsArea() {
               <div className="product-content content-two">
                 <h3>{product.name}</h3>
 
-                <div className="product-review">
+                {/* <div className="product-review">
                   <div className="rating">
                     <i className="bx bxs-star"></i>
                     <i className="bx bxs-star"></i>
@@ -103,7 +107,7 @@ function ProductsDetailsArea() {
                     <i className="bx bxs-star"></i>
                     <i className="bx bxs-star"></i>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="price">
                   {/* <span className="old-price">$150.00</span> */}
@@ -125,7 +129,24 @@ function ProductsDetailsArea() {
                     <span>Category:</span> {product.category}
                   </li>
                   <li>
-                    <span>Size:</span> {product.size}
+                    <span>Quantity:</span> {product.total_in_stock}
+                  </li>
+                  <li className="row">
+                    <span className="col-1">Size:</span>{" "}
+                    <div className="form-group col-3">
+                      {/* <label htmlFor="category">Product Size</label> */}
+                      <select
+                        className="form-control"
+                        value={product_size}
+                        onChange={(e) => setProductSize(e.target.value)}
+                      >
+                        <option>Select Size</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="xl">Extra Large</option>
+                      </select>
+                    </div>
                   </li>
                 </ul>
 
@@ -164,7 +185,11 @@ function ProductsDetailsArea() {
                     />
                     <span
                       className="plus-btn"
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() =>
+                        quantity < product.total_in_stock
+                          ? setQuantity(quantity + 1)
+                          : setQuantity(product.total_in_stock)
+                      }
                     >
                       <i className="bx bx-plus"></i>
                     </span>
@@ -229,7 +254,7 @@ function ProductsDetailsArea() {
                 Description
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link"
                 id="reviews-tab"
@@ -240,7 +265,7 @@ function ProductsDetailsArea() {
               >
                 Reviews
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link"
@@ -305,7 +330,7 @@ function ProductsDetailsArea() {
               </ul> */}
             </div>
 
-            <div className="tab-pane fade" id="reviews" role="tabpanel">
+            {/* <div className="tab-pane fade" id="reviews" role="tabpanel">
               <div className="products-reviews">
                 <h3>Reviews</h3>
 
@@ -512,7 +537,7 @@ function ProductsDetailsArea() {
                   </form>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div
               className="tab-pane fade show"
@@ -521,8 +546,7 @@ function ProductsDetailsArea() {
             >
               <ul className="information-list">
                 <li>
-                  Address:{" "}
-                  <span>Street 5 DHA Phase 5 Block B House 4</span>
+                  Address: <span>Street 5 DHA Phase 5 Block B House 4</span>
                 </li>
                 <li>
                   Phone: <a href="tel:+15143214567">0300-1234567</a>
