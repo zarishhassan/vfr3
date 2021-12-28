@@ -124,6 +124,9 @@ function ProductsDetailsArea() {
                   <li>
                     <span>Category:</span> {product.category}
                   </li>
+                  <li>
+                    <span>Size:</span> {product.size}
+                  </li>
                 </ul>
 
                 {/* <div className="products-color-switch">

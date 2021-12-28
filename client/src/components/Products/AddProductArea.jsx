@@ -20,6 +20,7 @@ function AddProductArea() {
   const [product_type, setProductType] = useState("");
   const [product_color, setProductColor] = useState("");
   const [product_price, setProductPrice] = useState("");
+  const [product_size, setProductSize] = useState("");
   const [product_totalInStock, setTotalInStock] = useState("");
   const [category, setCategory] = useState("");
   const [message, setMessage] = useState(false);
@@ -61,7 +62,8 @@ function AddProductArea() {
         category,
         color: product_color,
         total_in_stock: product_totalInStock,
-        image: image
+        image: image,
+        size: product_size
       })
     );
     setMessage(true)
@@ -258,6 +260,25 @@ function AddProductArea() {
                 <p className="error_color">{errors.category}</p>
               )}
             </div>
+
+            <div className="form-group">
+              <label htmlFor="category">Product Size</label>
+              <select
+                className="form-control"
+                value={product_size}
+                onChange={(e) => setProductSize(e.target.value)}
+              >
+                <option>All Type</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="xl">Extra Large</option>
+              </select>
+              {product_size === "" && (
+                <p className="error_color">{errors.product_size}</p>
+              )}
+            </div>
+
             <div className="form-group">
               <label htmlFor="product_color">Product Color</label>
               <input
