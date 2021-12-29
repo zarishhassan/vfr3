@@ -53,14 +53,14 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                     </Link>
                     <div className="tag">New</div>
                     <ul className="shop-action">
-                      <li>
+                      {/* <li>
                         <span
                           className="addtocart-icon-wrap"
                           onClick={() => addToCart(product)}
                         >
                           <i className="flaticon-shopping-cart"></i>
                         </span>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to="#">
                           <i className="flaticon-heart"></i>

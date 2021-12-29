@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-function RegisterArea() {
+function RegisterArea({history}) {
   const name = useRef();
   const username = useRef();
   const email = useRef();
@@ -33,32 +33,51 @@ function RegisterArea() {
           phone.current.value = "";
           password.current.value = "";
           setMessage("Account successfully created");
-        } else if (res.errors) {
-          let errors = Object.values(res.errors);
-          setMessage(errors);
+        } else if (res.error) {
+          // let errors = Object.values(res.errors);
+          setMessage(res.error);
         }
       })
       .catch((err) => console.log(err));
   };
 
+  if(message && message === "Account successfully created") {
+    history.push("/login")
+  }
+
+  console.log(message);
+
   return (
+    // message &&
+    //     (Array.isArray(message) ? (
+    //       <div className="alert alert-danger" role="alert">
+    //         <ul className="errors" style={{ marginBottom: 0 }}>
+    //           {message.map((msg) => (
+    //             <li key={msg} className="error">
+    //               {msg}
+    //             </li>
+    //           ))}
+    //         </ul>
+    //       </div>
     <div className="register-form">
-      {message &&
-        (Array.isArray(message) ? (
-          <div className="alert alert-danger" role="alert">
-            <ul className="errors" style={{ marginBottom: 0 }}>
+      {message && message === "Sorry email already registered" ? (
+        <div className="alert alert-danger" role="alert">
+          {message}
+          {/* <ul className="errors" style={{ marginBottom: 0 }}>
               {message.map((msg) => (
                 <li key={msg} className="error">
                   {msg}
                 </li>
               ))}
-            </ul>
-          </div>
-        ) : (
-          <div className={`alert alert-success`} role="alert">
-            {message}
-          </div>
-        ))}
+            </ul> */}
+        </div>
+      ) : message === "Account successfully created" ? (
+        <div className={`alert alert-success`} role="alert">
+          {message}
+        </div>
+      ) : (
+        <div></div>
+      )}
       <h2>Register</h2>
 
       <form onSubmit={handleRegistration}>
@@ -97,6 +116,8 @@ function RegisterArea() {
             type="text"
             className="form-control"
             placeholder="Phone"
+            pattern="[0]{1}[3]{1}[0-9]{2}[0-9]{7}"
+            title="Please Enter the Valid Pattern ex-03001234567"
             ref={phone}
             required
           />
@@ -109,6 +130,8 @@ function RegisterArea() {
             placeholder="Password"
             ref={password}
             required
+            pattern=".{8,}"
+            title="8 characters minimum"
           />
         </div>
 
@@ -140,4 +163,4 @@ function RegisterArea() {
   );
 }
 
-export default RegisterArea;
+export default withRouter(RegisterArea);

@@ -176,8 +176,8 @@ function App() {
               <Route path="/search" component={Search} />
               <Route path="/contact" component={Contact} />
               <Route path="/faqs" component={Faqs} />
-              {!token && <Route path="/login" component={Login} />}
-              {!token && <Route path="/register" component={Register} />}
+              {!token && <Route path="/login" component={Login} exact/>}
+              {!token && <Route path="/register" component={Register} exact/>}
 
               <Route path="/my-account" component={MyAccount} />
               <Route path="/error-404" component={Error404} />

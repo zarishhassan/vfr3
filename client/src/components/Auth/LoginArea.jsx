@@ -84,7 +84,7 @@ function LoginArea({ customClass = "", history }) {
           />
         </div>
 
-        <div className="row align-items-center">
+        {/* <div className="row align-items-center">
           <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="form-check">
               <input
@@ -103,7 +103,7 @@ function LoginArea({ customClass = "", history }) {
               Forgot your password?
             </a>
           </div>
-        </div>
+        </div> */}
 
         <button type="submit">Login</button>
       </form>

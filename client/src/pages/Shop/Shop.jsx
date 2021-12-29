@@ -45,7 +45,9 @@ function Shop({ match }) {
       price: product.price,
       type: product.type,
       total_in_stock: product.total_in_stock,
-      image_public_id: product.image_public_id,
+      image: product.image,
+
+      // image_public_id: product.image_public_id,
       quantity,
     };
     context.addItemToCart(currentItem);

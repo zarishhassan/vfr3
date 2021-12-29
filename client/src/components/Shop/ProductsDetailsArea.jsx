@@ -47,6 +47,10 @@ function ProductsDetailsArea() {
   }, []);
 
   const addToCart = (product) => {
+    if(product_size === "") {
+      alert("Please Select Size");
+      return;
+    }
     let currentItem = {
       _id: product._id,
       name: product.name,
@@ -60,6 +64,8 @@ function ProductsDetailsArea() {
     };
     context.addItemToCart(currentItem);
   };
+
+  // console.log("Size ", product_size);
 
   return (
     <section className="products-details-area ptb-50">
@@ -139,6 +145,7 @@ function ProductsDetailsArea() {
                         className="form-control"
                         value={product_size}
                         onChange={(e) => setProductSize(e.target.value)}
+                        required
                       >
                         <option>Select Size</option>
                         <option value="small">Small</option>

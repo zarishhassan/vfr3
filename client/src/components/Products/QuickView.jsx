@@ -18,7 +18,9 @@ function QuickView({ isOpen, closeModal, product }) {
       price: product.price,
       type: product.type,
       total_in_stock: product.total_in_stock,
-      image_public_id: product.image_public_id,
+      image: product.image,
+
+      // image_public_id: product.image_public_id,
       quantity,
     };
     context.addItemToCart(currentItem);
@@ -34,14 +36,15 @@ function QuickView({ isOpen, closeModal, product }) {
               <Image
                 key={product._id}
                 cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                publicId={product.image_public_id}
+                // publicId={product.image_public_id}
+                src={product.image}
                 width="470"
                 crop="scale"
               />
             </Col>
             <Col xs={6} md={6}>
               <Modal.Title>{product.name}</Modal.Title>
-              <div className="product-review">
+              {/* <div className="product-review">
                 <div className="rating">
                   <i className="bx bxs-star"></i>
                   <i className="bx bxs-star"></i>
@@ -49,20 +52,20 @@ function QuickView({ isOpen, closeModal, product }) {
                   <i className="bx bxs-star"></i>
                   <i className="bx bxs-star"></i>
                 </div>
-              </div>
+              </div> */}
 
               <div className="price">
-                <span className="old-price">$150.00</span>
-                <span className="new-price">${product.price}</span>
+                {/* <span className="old-price">$150.00</span> */}
+                <span className="new-price">RS {product.price}</span>
               </div>
 
               <p>{product.description}</p>
 
-              <ul className="products-info">
+              {/* <ul className="products-info">
                 <li>
                   <span>Availability:</span> <a href="/#">In stock</a>
                 </li>
-              </ul>
+              </ul> */}
 
               <div className="product-quantities">
                 <span>Quantities:</span>
@@ -92,18 +95,17 @@ function QuickView({ isOpen, closeModal, product }) {
                 </div>
               </div>
 
-                <div className="product-add-to-cart">
-                  <button
-                    type="submit"
-                    className="default-btn"
-                    onClick={() => addToCart(product)}
-                  >
-                    <i className="flaticon-shopping-cart"></i>
-                    Add to cart
-                    <span></span>
-                  </button>
-                </div>
-              
+              <div className="product-add-to-cart">
+                <button
+                  type="submit"
+                  className="default-btn"
+                  onClick={() => addToCart(product)}
+                >
+                  <i className="flaticon-shopping-cart"></i>
+                  Add to cart
+                  <span></span>
+                </button>
+              </div>
             </Col>
           </Row>
         </Container>

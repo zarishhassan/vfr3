@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import CartContext from "../../contexts/cart-context";
 
 function CartArea() {
   const context = useContext(CartContext);
+  const [product_size, setProductSize] = useState("");
 
   const updateQuantity = (cartItem, quantity) => {
     console.log(quantity);
@@ -130,6 +131,19 @@ function CartArea() {
 
                             <td className="product-subtotal">
                               <span className="subtotal-amount">
+                                {/* <select
+                                  className="form-control"
+                                  value={product_size}
+                                  onChange={(e) =>
+                                    setProductSize(e.target.value)
+                                  }
+                                >
+                                  <option>Select Size</option>
+                                  <option value="small">Small</option>
+                                  <option value="medium">Medium</option>
+                                  <option value="large">Large</option>
+                                  <option value="xl">Extra Large</option>
+                                </select> */}
                                 {cartItem.size}
                                 {/* RS {cartItem.quantity * parseInt(cartItem.price)} */}
                               </span>

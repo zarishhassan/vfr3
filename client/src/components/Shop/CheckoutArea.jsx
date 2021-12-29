@@ -187,8 +187,8 @@ function CheckoutArea() {
           <div
             className={`
         ${
-          message === "Order successfully added"
-        } ? alert alert-success : alert alert-danger 
+          message === "Order successfully added" 
+        } ? alert alert-success : alert alert-success 
       `}
             role="alert"
           >
@@ -246,7 +246,7 @@ function CheckoutArea() {
                     </div>
                   </div>
 
-                  <div className="col-lg-12 col-md-12">
+                  {/* <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <label>Company Name</label>
                       <input
@@ -257,7 +257,7 @@ function CheckoutArea() {
                         onChange={(e) => setCompanyName(e.target.value)}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
