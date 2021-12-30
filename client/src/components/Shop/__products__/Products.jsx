@@ -78,11 +78,11 @@ function Products({ products, showQuickView }) {
                     </Link>
                     {/* <div className="tag">New</div> */}
                     <ul className="shop-action">
-                      <li>
+                      {/* <li>
                         <Link to="#">
                           <i className="flaticon-shopping-cart"></i>
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to="#">
                           <i className="flaticon-heart"></i>

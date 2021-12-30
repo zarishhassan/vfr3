@@ -61,6 +61,8 @@ import MenProducts from "./pages/Shop/MenProducts";
 import WomenProducts from "./pages/Shop/WomenProducts";
 
 import TryRoom from "./pages/Home/Tryroom"
+import UpdateProfile from "./pages/User/UpdateProfile";
+import EditProduct from "./pages/Products/EditProduct";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -216,6 +218,11 @@ function App() {
                 component={ProductsDetails}
               />
               <Route
+                path="/editProduct/:id"
+                component={EditProduct}
+                exact
+              />
+              <Route
                 path="/products-details-sidebar"
                 component={ProductsDetailsSidebar}
               />
@@ -229,6 +236,7 @@ function App() {
               {/* <Route path="/add-product" component={AddProduct} /> */}
               {token && userRole === "admin" && <Route path="/add-product" component={AddProduct} />}
               {token && <Route path="/profile" component={User} />}
+              {token && <Route path="/updateProfile/:id" component={UpdateProfile} exact/>}
               {token && userRole === "admin" && <Route path="/products" component={Products} />}
               {token && <Route path="/reset" component={ResetPassword} />}
             </Switch>

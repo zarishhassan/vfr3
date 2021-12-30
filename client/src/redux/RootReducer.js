@@ -1,12 +1,22 @@
 import { combineReducers } from "redux";
-import {productCreateReducer, productDetailReducer, productReducer} from "./Product/ProductReducer";
+import {
+  productCreateReducer,
+  productDetailReducer,
+  productReducer,
+  productUpdateReducer
+} from "./Product/ProductReducer";
 import OrderReducer from "./Order/OrderReducer";
-import PasswordReducer from "./ResetPassword/PasswordReducer";
+import {
+  PasswordReducer,
+  userUpdateProfileReducer,
+} from "./ResetPassword/PasswordReducer";
 
 export default combineReducers({
   productCreateReducer,
   OrderReducer,
   PasswordReducer,
   productDetailReducer,
-  productReducer
+  productReducer,
+  userUpdateProfileReducer,
+  productUpdateReducer
 });

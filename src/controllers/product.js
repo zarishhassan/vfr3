@@ -1,10 +1,10 @@
 const Product = require("../models/Product");
 const { cloudinary } = require("../utils/cloudinary");
-const asyncHandler =  require("express-async-handler");
+const asyncHandler = require("express-async-handler");
 
 exports.fetchProducts = async (req, res) => {
   try {
-    const pageSize = 10;
+    const pageSize = 30;
     const page = Number(req.query.pageNumber) || 1;
 
     const keyword = req.query.keyword
@@ -85,6 +85,37 @@ exports.deleteProduct = async (req, res) => {
     const products = await Product.find({});
 
     return res.status(200).json({ message: "Successfully Deleted", products });
+  } catch (err) {
+    res.status(500);
+  }
+};
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const product = await Product.findById({
+      _id,
+    });
+
+    // res.json(product);
+
+    if (product) {
+      product.name = req.body.name || product.name;
+      product.description = req.body.description || product.description;
+      product.type = req.body.type || product.type;
+      product.category = req.body.category || product.category;
+      product.price = req.body.price || product.price;
+      product.color = req.body.color || product.color;
+      product.image = req.body.image || product.image;
+      product.total_in_stock = req.body.total_in_stock || product.total_in_stock;
+
+      const updatedProduct = await product.save();
+
+      res.json(updatedProduct);
+    } else {
+      res.status(404);
+      throw new Error("Product Not Found");
+    }
   } catch (err) {
     res.status(500);
   }

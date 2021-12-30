@@ -15,6 +15,9 @@ function MiddleHeader({ history }) {
     e.preventDefault();
     if (keyword.trim()) {
       history.push(`/shop/${keyword}`);
+      // if(keyword) {
+      //   console.log('Keyword ', keyword);
+      // }
     } else {
       history.push("/");
     }

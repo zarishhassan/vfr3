@@ -38,10 +38,11 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
     setImagePublicId(imagePublicId);
   };
 
-  console.log('Edit  ', editProduct);
+  // console.log('Edit  ', editProduct);
 
   const openEditModal = (product) => {
     console.log('Product Id ', product._id);
+    history.push(`/editProduct/${product._id}`);
     setProduct(product);
     setName(product.name);
     setDescription(product.description);
@@ -157,8 +158,8 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                           </button>{" "}
                           <button
                             className="btn btn-primary"
-                            data-toggle="modal"
-                            data-target="#editModal"
+                            // data-toggle="modal"
+                            // data-target="#editModal"
                             onClick={
                               () => openEditModal(product)
                               // openEditModal(product, product.imageId)

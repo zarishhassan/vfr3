@@ -148,6 +148,39 @@ exports.checkRole = async (req, res) => {
   }
 };
 
+exports.updateProfile = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const user = await User.findById({
+      _id,
+    });
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.phone = req.body.phone || user.phone;
+  
+      const updatedUser = await user.save();
+  
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        phone: updatedUser.phone,
+        // type: updatedUser.type,
+        // token: generateToken(updatedUser._id),
+      });
+    } else {
+      res.status(404);
+      throw new Error("User Not Found");
+    }
+    // return res.status(200).json({
+    //   user,
+    // });
+  } catch (err) {
+    res.status(500);
+  }
+
+}
+
 exports.passwordReset = async (req, res) => {
   try {
     const email = req.body.email;
