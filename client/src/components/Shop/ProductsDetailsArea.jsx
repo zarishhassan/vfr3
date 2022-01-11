@@ -1,17 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { Image } from "cloudinary-react";
 // import { Image } from "react-bootstrap";
 import CartContext from "../../contexts/cart-context";
 import { listProductDetails } from "../../redux/Product/ProductAction";
 import { useDispatch, useSelector } from "react-redux";
+import { createWishlist } from "../../redux/Wishlist/WishlistAction";
 
-function ProductsDetailsArea() {
+function ProductsDetailsArea({ history }) {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const [product_size, setProductSize] = useState("");
+  const [userId, setUserId] = useState("");
+
 
   const context = useContext(CartContext);
 
@@ -22,6 +25,33 @@ function ProductsDetailsArea() {
   );
   const { loading, error, product: productt } = productDetailReducer;
 
+  const wishlistCreate = useSelector((state) => state.wishlistCreate);
+  const {
+    loading: loadingWishlist,
+    success: successWishlist,
+    error: errorWishlist,
+    wishlist,
+  } = wishlistCreate;
+
+  useEffect(() => {
+    const _token = JSON.parse(localStorage.getItem("token"));
+    
+    const tokenExp = JSON.parse(localStorage.getItem("tokenExpiration"));
+    const userIdLocal = JSON.parse(localStorage.getItem("userId"));
+    const userRoleLocal = JSON.parse(localStorage.getItem("role"));
+    const userNameLocal = JSON.parse(localStorage.getItem("name"));
+    if (_token && userIdLocal && tokenExp) {
+      // setToken(_token);
+      setUserId(userIdLocal);
+      // setUserRole(userRoleLocal);
+      // setTokenExpiration(tokenExp);
+    }
+    // const _cartItems = JSON.parse(localStorage.getItem("cart-items"));
+    // if (_cartItems && _cartItems.length > 0) {
+    //   setCartItems(_cartItems);
+    // }
+  }, []);
+
   useEffect(() => {
     // if (successProductReview) {
     //   alert("Review Submitted!!");
@@ -30,8 +60,12 @@ function ProductsDetailsArea() {
     //   dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     // }
     dispatch(listProductDetails(productId));
+
+    if (successWishlist) {
+      history.push("/wishlist");
+    }
     // dispatch(listProductInspectionDetails(match.params.id));
-  }, [dispatch]);
+  }, [dispatch, successWishlist]);
 
   // if(product) {
   //   console.log('Product ', productt.product.image, productId);
@@ -63,6 +97,10 @@ function ProductsDetailsArea() {
       size: product_size
     };
     context.addItemToCart(currentItem);
+  };
+
+  const addToWishlist = (product) => {
+    dispatch(createWishlist({ product: product._id, user: userId }));
   };
 
   // console.log("Size ", product_size);
@@ -202,6 +240,17 @@ function ProductsDetailsArea() {
                     </span>
                   </div>
                 </div>
+                <div className="product-add-to-cart">
+                  <button
+                    type="submit"
+                    className="default-btn"
+                    onClick={() => addToWishlist(product)}
+                  >
+                    <i className="flaticon-heart"></i>
+                    Add to Wishlist
+                    <span></span>
+                  </button>
+                </div>
 
                 <div className="product-add-to-cart">
                   <button
@@ -214,6 +263,18 @@ function ProductsDetailsArea() {
                     <span></span>
                   </button>
                 </div>
+{/*                 
+                <div className="product-add-to-cart">
+                  <button
+                    type="submit"
+                    className="default-btn"
+                    onClick={() => addToCart(product)}
+                  >
+                    <i className="flaticon-heart"></i>
+                    Add to Wishlist
+                    <span></span>
+                  </button>
+                </div> */}
 
                 {/* <div className="products-share">
                   <ul className="social">
@@ -570,4 +631,4 @@ function ProductsDetailsArea() {
   );
 }
 
-export default ProductsDetailsArea;
+export default withRouter(ProductsDetailsArea);

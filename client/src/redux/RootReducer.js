@@ -3,13 +3,14 @@ import {
   productCreateReducer,
   productDetailReducer,
   productReducer,
-  productUpdateReducer
+  productUpdateReducer,
 } from "./Product/ProductReducer";
 import OrderReducer from "./Order/OrderReducer";
 import {
   PasswordReducer,
   userUpdateProfileReducer,
 } from "./ResetPassword/PasswordReducer";
+import { wishlistCreateReducer, wishlistMyReducer } from "./Wishlist/WishlistReducer";
 
 export default combineReducers({
   productCreateReducer,
@@ -18,5 +19,7 @@ export default combineReducers({
   productDetailReducer,
   productReducer,
   userUpdateProfileReducer,
-  productUpdateReducer
+  productUpdateReducer,
+  wishlistCreate: wishlistCreateReducer,
+  wishlistMy: wishlistMyReducer
 });

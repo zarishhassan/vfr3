@@ -188,6 +188,7 @@ function TryRoom() {
                   id="feet"
                   value={heightFt}
                   onChange={(e) => setHeightFt(e.target.value)}
+                  required
                 />
                 {/* {product_price === "" && (
                 <p className="error_color">{errors.product_price}</p>
@@ -202,6 +203,7 @@ function TryRoom() {
                   id="inch"
                   value={heightInch}
                   onChange={(e) => setHeightInch(e.target.value)}
+                  required={true}
                 />
                 {/* {product_totalInStock === "" && (
                 <p className="error_color">{errors.product_totalInStock}</p>
@@ -213,6 +215,7 @@ function TryRoom() {
                 data-toggle="modal"
                 data-target="#editModal"
                 onClick={handleSubmit}
+                disabled={heightFt <= 0}
               >
                 {/* <i className="flaticon-shopping-cart add-product-btn-icon"></i> */}
                 Upload
@@ -260,12 +263,12 @@ function TryRoom() {
                   Waist Size: {results !== null && results.Waist * 0.394}
                 </div>
 
-                {results.Chest * 0.394 < 15 ? (
+                {results.Chest * 0.394 < 20 ? (
                   <div className="form-group form-control">
                     Shirt Size: Small
                   </div>
-                ) : results.Chest * 0.394 >= 15 &&
-                  results.Chest * 0.394 <= 25 ? (
+                ) : results.Chest * 0.394 >= 20 &&
+                  results.Chest * 0.394 <= 30 ? (
                   <div className="form-group form-control">
                     Shirt Size: Medium
                   </div>

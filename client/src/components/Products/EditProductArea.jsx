@@ -123,7 +123,7 @@ const EditProductArea = ({ match, history }) => {
                 className="form-control"
                 placeholder="Name"
                 id="product_name"
-                value={name}
+                value={name.length === 0 ? product.name : name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>

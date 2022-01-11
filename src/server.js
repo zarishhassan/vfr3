@@ -8,6 +8,8 @@ const productRoutes = require("./routings/product");
 const userRoutes = require("./routings/user");
 const orderRoutes = require("./routings/order");
 const uploadRoutes = require("./routings/upload");
+const wishlistRoutes = require("./routings/wishlist");
+// import wishlistRoutes from "./routes/wishlistRoutes.js";
 
 const production = process.env.NODE_ENV === "production";
 
@@ -33,6 +35,7 @@ app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/upload", uploadRoutes);
+app.use("/wishlist", wishlistRoutes);
 
 // when we ready to get our payment we will hit this route and fetch this client ID
 app.get("/config/paypal", (req, res) =>
