@@ -67,7 +67,7 @@ function QuickView({ isOpen, closeModal, product }) {
                 </li>
               </ul> */}
 
-              <div className="product-quantities">
+              {/* <div className="product-quantities">
                 <span>Quantities:</span>
 
                 <div className="input-counter">
@@ -93,9 +93,9 @@ function QuickView({ isOpen, closeModal, product }) {
                     <i className="bx bx-plus"></i>
                   </span>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="product-add-to-cart">
+              {/* <div className="product-add-to-cart">
                 <button
                   type="submit"
                   className="default-btn"
@@ -105,7 +105,7 @@ function QuickView({ isOpen, closeModal, product }) {
                   Add to cart
                   <span></span>
                 </button>
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>

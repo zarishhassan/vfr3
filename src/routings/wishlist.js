@@ -12,7 +12,7 @@ const router = express.Router();
 const wishlistController = require("../controllers/wishlist");
 
 router.route("/").post(wishlistController.createWishlist).get(wishlistController.getMyWishlists);
-// router.route("/:id").delete(protect, buyer, deleteWishlist);
+router.route("/delete-wishlist").post(wishlistController.deleteWishlist);
 
 // export default router;
 module.exports = router;

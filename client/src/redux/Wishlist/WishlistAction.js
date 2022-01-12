@@ -3,7 +3,9 @@ import {
   WISHLIST_CREATE_FAIL,
   WISHLIST_CREATE_REQUEST,
   WISHLIST_CREATE_SUCCESS,
+  WISHLIST_DELETE_FAIL,
   WISHLIST_DELETE_REQUEST,
+  WISHLIST_DELETE_SUCCESS,
   WISHLIST_LIST_MY_FAIL,
   WISHLIST_LIST_MY_REQUEST,
   WISHLIST_LIST_MY_SUCCESS,
@@ -64,28 +66,29 @@ export const listMyWishlist = () => async (dispatch) => {
   }
 };
 
-// export const deleteWishlist = (id) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: WISHLIST_DELETE_REQUEST,
-//     });
+export const deleteWishlist = (productId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: WISHLIST_DELETE_REQUEST,
+    });
 
-//     await axios.delete(`/api/wishlist/${id}`, config);
+    console.log('productId in action ', productId)
+    await axios.delete("/wishlist", productId);
 
-//     dispatch({
-//       type: WISHLIST_DELETE_SUCCESS,
-//     });
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message;
-//     // if (message === "Not authorized, token failed") {
-//     //   dispatch(logout());
-//     // }
-//     dispatch({
-//       type: WISHLIST_DELETE_FAIL,
-//       payload: message,
-//     });
-//   }
-// };
+    dispatch({
+      type: WISHLIST_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    // if (message === "Not authorized, token failed") {
+    //   dispatch(logout());
+    // }
+    dispatch({
+      type: WISHLIST_DELETE_FAIL,
+      payload: message,
+    });
+  }
+};

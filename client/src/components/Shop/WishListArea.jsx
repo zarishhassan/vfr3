@@ -7,24 +7,30 @@ import cart8 from "../../assets/img/cart/cart-8.jpg";
 import cart4 from "../../assets/img/cart/cart-4.png";
 import cart5 from "../../assets/img/cart/cart-5.png";
 import { Link } from "react-router-dom";
-import { listMyWishlist } from "../../redux/Wishlist/WishlistAction";
+import {
+  listMyWishlist,
+  deleteWishlist,
+} from "../../redux/Wishlist/WishlistAction";
+import axios from "axios";
+
 
 // import { listMyWishlist } from "../actions/wishlistActions";
 
 function WishListArea() {
   const [userId, setUserId] = useState("");
+  const [newWishlist, setNewWishlist] = useState([]);
 
   const dispatch = useDispatch();
 
   const wishlistMy = useSelector((state) => state.wishlistMy);
   const { loading, error, wishlists } = wishlistMy;
 
-  // const wishlistDelete = useSelector((state) => state.wishlistDelete);
-  // const {
-  //   loading: loadingDelete,
-  //   error: errorDelete,
-  //   success: successDelete,
-  // } = wishlistDelete;
+  const wishlistDelete = useSelector((state) => state.wishlistDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = wishlistDelete;
 
   useEffect(() => {
     const _token = JSON.parse(localStorage.getItem("token"));
@@ -46,11 +52,15 @@ function WishListArea() {
   }, []);
   console.log(userId);
 
+  // const idd = wishlists[0]._id
+  // console.log("id ", idd)
+
   useEffect(() => {
     // const user = userId
     dispatch(listMyWishlist());
+    // dispatch(deleteWishlist({ productId: "61ddb167abd4052a48f7005b" }));
     // dispatch(listMyWishlist({user: userId}));
-  }, [dispatch]);
+  }, [dispatch, newWishlist]);
 
   let myWishList = [];
   if (wishlists && wishlists.length > 0) {
@@ -65,12 +75,22 @@ function WishListArea() {
     console.log("My WishList ", myWishList);
   }
 
-  // const removeFromCartHandler = (id) => {
-  //   console.log(id);
-  //   if (window.confirm("Are you sure")) {
-  //     dispatch(deleteWishlist(id));
-  //   }
-  // };
+  const removeFromCartHandler = (id) => {
+    axios
+    .post(`/wishlist/delete-wishlist`, {
+      productId: id,
+    })
+    .then((res) => {
+      if (res.data.message === "Successfully Deleted") {
+        setNewWishlist(res.data.wishlists);
+      }
+    })
+    .catch((err) => console.log(err));
+    console.log(id);
+    if (window.confirm("Are you sure")) {
+      dispatch(deleteWishlist({ productId: id }));
+    }
+  };
 
   return (
     <section className="wishlist-area ptb-50">
@@ -79,7 +99,7 @@ function WishListArea() {
           <div className="wishlist-title">
             <h2>My Wishlist</h2>
           </div>
-          {loading && <div>loading...!!</div>}
+          {/* {loading && <div>loading...!!</div>} */}
 
           {myWishList && myWishList.length > 0 ? (
             myWishList.map((wish) => (
@@ -87,9 +107,20 @@ function WishListArea() {
                 <tbody>
                   <tr key={wish._id}>
                     <td className="product-remove">
-                      <a href="#" className="remove">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          removeFromCartHandler(wish._id)
+                        }
+                        className="btn btn-danger"
+                        // data-toggle="modal"
+                        // data-target="#deleteModal"
+                      >
+                        Delete
+                      </button>{" "}
+                      {/* <a href="#" className="remove">
                         <i className="bx bx-x"></i>
-                      </a>
+                      </a> */}
                     </td>
                     <td className="product-thumbnail">
                       <a href="#">
@@ -97,12 +128,14 @@ function WishListArea() {
                       </a>
                     </td>
                     <td className="product-name">
-                  <Link to={`/products-details/${wish.product}`}>
-                    {wish.productName}
-                  </Link>
-                </td>
+                      <Link to={`/products-details/${wish.product}`}>
+                        {wish.productName}
+                      </Link>
+                    </td>
                     <td className="product-price">
-                      <span className="unit-amount">{wish.productPrice} PKR</span>
+                      <span className="unit-amount">
+                        {wish.productPrice} PKR
+                      </span>
                     </td>
                   </tr>
                 </tbody>

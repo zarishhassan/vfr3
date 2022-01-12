@@ -57,40 +57,58 @@ exports.createWishlist = asyncHandler(async (req, res) => {
 // @desc    Delete a WishList
 // @route   DELETE /api/wishlist/:id
 // @access  Private/Buyer
-const deleteWishlist = asyncHandler(async (req, res) => {
-  const wishlist = await Wishlist.findById(req.params.id);
-  const user = await User.findById(req.user._id); // Current Logged in User
+// exports.deleteWishlist = asyncHandler(async (req, res) => {
+//   const wishlist = await Wishlist.findById(req.params.id);
+//   const { user } = req.body;
+//   const userr = await User.findById(user); // Current Logged in User
 
-  // res.json(wishlist);
+//   res.json(userr)
 
-  if (wishlist.user.toString() === req.user._id.toString()) {
-    await wishlist.remove();
-    res.json({ message: "Wishlist Removed." });
-  } else {
-    res.status(404);
-    throw new Error("This is not your wishlist");
+//   // res.json(wishlist);
+
+//   // if (wishlist.user.toString() === req.user._id.toString()) {
+//   //   await wishlist.remove();
+//   //   res.json({ message: "Wishlist Removed." });
+//   // } else {
+//   //   res.status(404);
+//   //   throw new Error("This is not your wishlist");
+//   // }
+// });
+
+exports.deleteWishlist = async (req, res) => {
+  try {
+    const productId = req.body.productId;
+
+    console.log("Id ", productId)
+
+    await Wishlist.deleteOne({ _id: productId });
+    const wishlists = await Wishlist.find({});
+
+    return res.status(200).json({ message: "Successfully Deleted", wishlists });
+  } catch (err) {
+    res.status(500);
   }
-});
+};
 
 // @desc    Get logged in Buyer Wishlist
 // @route   GET /api/wishlist
 // @access  Private/Buyer
 exports.getMyWishlists = asyncHandler(async (req, res) => {
-//   const { user } = req.body;
+  //   const { user } = req.body;
   // res.json(userr)
   //   const user = req.user._id;
   const wishlists = await Wishlist.find({});
 
-//   console.log(user);
+  //   console.log(user);
 
-//   let myWishlist = [];
-//   if (wishlists) {
-//     wishlists.map((wish) => {
-//       if (wish.user.toString() === user) {
-//         myWishlist.push(wish);
-//       }
-//     });
-//   }
+  //   let myWishlist = [];
+  //   if (wishlists) {
+  //     wishlists.map((wish) => {
+  //       if (wish.user.toString() === user) {
+  //         myWishlist.push(wish);
+  //       }
+  //     });
+  //   }
   res.json(wishlists);
 });
 

@@ -7,6 +7,7 @@ import CartContext from "../../contexts/cart-context";
 import { listProductDetails } from "../../redux/Product/ProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { createWishlist } from "../../redux/Wishlist/WishlistAction";
+import { WISHLIST_CREATE_RESET } from "../../redux/Wishlist/WishlistTypes";
 
 function ProductsDetailsArea({ history }) {
   const [quantity, setQuantity] = useState(1);
@@ -14,7 +15,6 @@ function ProductsDetailsArea({ history }) {
   const { productId } = useParams();
   const [product_size, setProductSize] = useState("");
   const [userId, setUserId] = useState("");
-
 
   const context = useContext(CartContext);
 
@@ -35,7 +35,7 @@ function ProductsDetailsArea({ history }) {
 
   useEffect(() => {
     const _token = JSON.parse(localStorage.getItem("token"));
-    
+
     const tokenExp = JSON.parse(localStorage.getItem("tokenExpiration"));
     const userIdLocal = JSON.parse(localStorage.getItem("userId"));
     const userRoleLocal = JSON.parse(localStorage.getItem("role"));
@@ -62,6 +62,7 @@ function ProductsDetailsArea({ history }) {
     dispatch(listProductDetails(productId));
 
     if (successWishlist) {
+      dispatch({ type: WISHLIST_CREATE_RESET });
       history.push("/wishlist");
     }
     // dispatch(listProductInspectionDetails(match.params.id));
@@ -81,7 +82,7 @@ function ProductsDetailsArea({ history }) {
   }, []);
 
   const addToCart = (product) => {
-    if(product_size === "") {
+    if (product_size === "") {
       alert("Please Select Size");
       return;
     }
@@ -94,7 +95,7 @@ function ProductsDetailsArea({ history }) {
       // image_public_id: product.image_public_id,
       image: product.image,
       quantity,
-      size: product_size
+      size: product_size,
     };
     context.addItemToCart(currentItem);
   };
@@ -263,7 +264,7 @@ function ProductsDetailsArea({ history }) {
                     <span></span>
                   </button>
                 </div>
-{/*                 
+                {/*                 
                 <div className="product-add-to-cart">
                   <button
                     type="submit"

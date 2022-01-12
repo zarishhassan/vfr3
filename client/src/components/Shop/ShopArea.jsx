@@ -61,11 +61,11 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                           <i className="flaticon-shopping-cart"></i>
                         </span>
                       </li> */}
-                      <li>
+                      {/* <li>
                         <Link to="#">
                           <i className="flaticon-heart"></i>
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <span
                           onClick={() => showQuickView(product)}
