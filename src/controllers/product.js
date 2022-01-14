@@ -46,7 +46,7 @@ exports.addProduct = async (req, res) => {
       type,
       category,
       price,
-      color,
+      color: color.toLowerCase(),
       image,
       // size,
       // image_public_id,
@@ -105,7 +105,7 @@ exports.updateProduct = async (req, res) => {
       product.type = req.body.type || product.type;
       product.category = req.body.category || product.category;
       product.price = req.body.price || product.price;
-      product.color = req.body.color || product.color;
+      product.color = req.body.color.toLowerCase() || product.color;
       product.image = req.body.image || product.image;
       product.total_in_stock = req.body.total_in_stock || product.total_in_stock;
 

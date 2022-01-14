@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { Image } from "cloudinary-react";
 
 //actions
 import { listProducts } from "../../redux/Product/ProductAction";
@@ -21,8 +22,9 @@ import QuickView from "../../components/Products/QuickView";
 import Preloader from "../../components/Common/Preloader";
 import cartContext from "../../contexts/cart-context";
 import "./Home.scss";
+import { withRouter } from "react-router-dom";
 
-function TryRoom() {
+function TryRoom({ history }) {
   const [image, setImage] = useState("");
   const [heightFt, setHeightFt] = useState(0);
   const [heightInch, setHeightInch] = useState(0);
@@ -96,6 +98,8 @@ function TryRoom() {
     }
   };
 
+  console.log("Image 0, ", image);
+
   var image1 =
     "D:/Fyp_project/body measurement-20211215T083927Z-001/body measurement/body measure/body measure/talha.jpeg"; //**** */ var
   var image2 =
@@ -127,6 +131,10 @@ function TryRoom() {
       .catch((err) => console.log("Error ", err));
   };
 
+  const shopHandler = () => {
+    history.push("/shop");
+  };
+
   console.log("results ", results);
 
   var temp = "Temp";
@@ -150,6 +158,15 @@ function TryRoom() {
           )} */}
 
             <h2>Virtual Try Room</h2>
+            <Image
+              src={image}
+              // alt={productt.product.name}
+              cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+              width="500"
+              // height="200px"
+              // style={{height: "700px"}}
+              crop="scale"
+            />
             <hr />
             <form onSubmit={handleSubmit}>
               {/* <form> */}
@@ -282,6 +299,18 @@ function TryRoom() {
                   Pant Size: {results !== null && results.Waist * 0.394}
                 </div>
               </form>
+
+              {results && (
+                <button
+                  className="add-product-btn float-right"
+                  onClick={shopHandler}
+                  type="submit"
+                  data-dismiss="modal"
+                  // aria-label="Close"
+                >
+                  Go to Shop
+                </button>
+              )}
             </div>
             {/* <div className="modal-footer">
                   <button
@@ -319,4 +348,4 @@ function TryRoom() {
   );
 }
 
-export default TryRoom;
+export default withRouter(TryRoom);
